@@ -1,0 +1,669 @@
+/* 이벤트 */
+DROP TABLE Event 
+	CASCADE CONSTRAINTS;
+
+/* 장바구니 */
+DROP TABLE Cart 
+	CASCADE CONSTRAINTS;
+
+/* 메뉴(버거, 사이드, 음료) */
+DROP TABLE Menu 
+	CASCADE CONSTRAINTS;
+
+/* 영양정보재료 */
+DROP TABLE Nutrient 
+	CASCADE CONSTRAINTS;
+
+/* 메뉴타입(버거,드링크등) */
+DROP TABLE MenuType 
+	CASCADE CONSTRAINTS;
+
+/* 매장 */
+DROP TABLE Restaurant 
+	CASCADE CONSTRAINTS;
+
+/* 회원 */
+DROP TABLE Member 
+	CASCADE CONSTRAINTS;
+
+/* 회원상태 */
+DROP TABLE MemberStatus 
+	CASCADE CONSTRAINTS;
+
+/* 주문 */
+DROP TABLE MemberOrder 
+	CASCADE CONSTRAINTS;
+
+/* 매출 */
+DROP TABLE Sales 
+	CASCADE CONSTRAINTS;
+
+/* 관리자 */
+DROP TABLE Admin 
+	CASCADE CONSTRAINTS;
+
+/* 권한 */
+DROP TABLE Role 
+	CASCADE CONSTRAINTS;
+
+/* 버거세트 */
+DROP TABLE BugerSet 
+	CASCADE CONSTRAINTS;
+
+/* 맥딜리버리 */
+DROP TABLE McDelivery 
+	CASCADE CONSTRAINTS;
+
+/* 매장메뉴 */
+DROP TABLE ResMenu 
+	CASCADE CONSTRAINTS;
+
+/* 이벤트 */
+CREATE TABLE Event (
+	eventNum NUMBER NOT NULL, /* 이벤트번호 */
+	eventTitle VARCHAR2(50) NOT NULL, /* 이벤트제목 */
+	eventImage VARCHAR2(200) NOT NULL, /* 이벤트사진 */
+	eventContent VARCHAR2(500) NOT NULL, /* 이벤트내용 */
+	writer VARCHAR2(20) NOT NULL /* 아이디 */
+);
+
+COMMENT ON TABLE Event IS '이벤트';
+
+COMMENT ON COLUMN Event.eventNum IS '이벤트번호';
+
+COMMENT ON COLUMN Event.eventTitle IS '이벤트제목';
+
+COMMENT ON COLUMN Event.eventImage IS '이벤트사진';
+
+COMMENT ON COLUMN Event.eventContent IS '이벤트내용';
+
+COMMENT ON COLUMN Event.writer IS '아이디';
+
+CREATE UNIQUE INDEX PK_Event
+	ON Event (
+		eventNum ASC
+	);
+
+ALTER TABLE Event
+	ADD
+		CONSTRAINT PK_Event
+		PRIMARY KEY (
+			eventNum
+		);
+
+/* 장바구니 */
+CREATE TABLE Cart (
+	cartSeq NUMBER NOT NULL, /* 장바구니순서번호 */
+	id VARCHAR2(20) NOT NULL, /* 주문자아이디 */
+	menuName VARCHAR2(100) NOT NULL, /* 메뉴내역 */
+	price NUMBER NOT NULL /* 가격 */
+);
+
+COMMENT ON TABLE Cart IS '장바구니';
+
+COMMENT ON COLUMN Cart.cartSeq IS '장바구니순서번호';
+
+COMMENT ON COLUMN Cart.id IS '주문자아이디';
+
+COMMENT ON COLUMN Cart.menuName IS '메뉴내역';
+
+COMMENT ON COLUMN Cart.price IS '가격';
+
+CREATE UNIQUE INDEX PK_Cart
+	ON Cart (
+		cartSeq ASC
+	);
+
+ALTER TABLE Cart
+	ADD
+		CONSTRAINT PK_Cart
+		PRIMARY KEY (
+			cartSeq
+		);
+
+/* 메뉴(버거, 사이드, 음료) */
+CREATE TABLE Menu (
+	menuName VARCHAR2(100) NOT NULL, /* 메뉴이름 */
+	menuType NUMBER NOT NULL, /* 메뉴종류번호 */
+	startDate DATE, /* 판매시작일 */
+	endDate DATE, /* 판매종료일 */
+	price NUMBER NOT NULL, /* 가격 */
+	menuImage VARCHAR2(200) NOT NULL /* 메뉴사진 */
+);
+
+COMMENT ON TABLE Menu IS '메뉴(버거, 사이드, 음료)';
+
+COMMENT ON COLUMN Menu.menuName IS '메뉴이름';
+
+COMMENT ON COLUMN Menu.menuType IS '메뉴종류번호';
+
+COMMENT ON COLUMN Menu.startDate IS '판매시작일';
+
+COMMENT ON COLUMN Menu.endDate IS '판매종료일';
+
+COMMENT ON COLUMN Menu.price IS '가격';
+
+COMMENT ON COLUMN Menu.menuImage IS '메뉴사진';
+
+CREATE UNIQUE INDEX PK_Menu
+	ON Menu (
+		menuName ASC
+	);
+
+ALTER TABLE Menu
+	ADD
+		CONSTRAINT PK_Menu
+		PRIMARY KEY (
+			menuName
+		);
+
+/* 영양정보재료 */
+CREATE TABLE Nutrient (
+	menuName VARCHAR2(100) NOT NULL, /* 메뉴이름 */
+	ingredient VARCHAR2(100) NOT NULL /* 재료 */
+);
+
+COMMENT ON TABLE Nutrient IS '영양정보재료';
+
+COMMENT ON COLUMN Nutrient.menuName IS '메뉴이름';
+
+COMMENT ON COLUMN Nutrient.ingredient IS '재료';
+
+CREATE UNIQUE INDEX PK_Nutrient
+	ON Nutrient (
+		menuName ASC
+	);
+
+ALTER TABLE Nutrient
+	ADD
+		CONSTRAINT PK_Nutrient
+		PRIMARY KEY (
+			menuName
+		);
+
+/* 메뉴타입(버거,드링크등) */
+CREATE TABLE MenuType (
+	menuType NUMBER NOT NULL, /* 메뉴종류번호 */
+	typeName VARCHAR2(20) NOT NULL /* 메뉴종류이름 */
+);
+
+COMMENT ON TABLE MenuType IS '메뉴타입(버거,드링크등)';
+
+COMMENT ON COLUMN MenuType.menuType IS '메뉴종류번호';
+
+COMMENT ON COLUMN MenuType.typeName IS '메뉴종류이름';
+
+CREATE UNIQUE INDEX PK_MenuType
+	ON MenuType (
+		menuType ASC
+	);
+
+ALTER TABLE MenuType
+	ADD
+		CONSTRAINT PK_MenuType
+		PRIMARY KEY (
+			menuType
+		);
+
+/* 매장 */
+CREATE TABLE Restaurant (
+	branchCode NUMBER NOT NULL, /* 매장번호 */
+	branchName VARCHAR2(100) NOT NULL, /* 매장이름 */
+	branchAddress VARCHAR2(200) NOT NULL, /* 매장주소 */
+	x NUMBER NOT NULL, /* 매장위도 */
+	y NUMBER NOT NULL /* 매장경도 */
+);
+
+COMMENT ON TABLE Restaurant IS '매장';
+
+COMMENT ON COLUMN Restaurant.branchCode IS '매장번호';
+
+COMMENT ON COLUMN Restaurant.branchName IS '매장이름';
+
+COMMENT ON COLUMN Restaurant.branchAddress IS '매장주소';
+
+COMMENT ON COLUMN Restaurant.x IS '매장위도';
+
+COMMENT ON COLUMN Restaurant.y IS '매장경도';
+
+CREATE UNIQUE INDEX PK_Restaurant
+	ON Restaurant (
+		branchCode ASC
+	);
+
+ALTER TABLE Restaurant
+	ADD
+		CONSTRAINT PK_Restaurant
+		PRIMARY KEY (
+			branchCode
+		);
+
+/* 회원 */
+CREATE TABLE Member (
+	id VARCHAR2(20) NOT NULL, /* 아이디 */
+	status NUMBER NOT NULL, /* 회원상태 */
+	password VARCHAR2(200) NOT NULL, /* 비밀번호 */
+	name VARCHAR2(20) NOT NULL, /* 이름 */
+	email VARCHAR2(100) NOT NULL, /* 이메일 */
+	address VARCHAR2(200) NOT NULL, /* 주소 */
+	phoneNum VARCHAR2(20) NOT NULL, /* 핸드폰번호 */
+	grade VARCHAR2(20) NOT NULL, /* 회원등급 */
+	lastLogin DATE NOT NULL, /* 마지막접속일자 */
+	birth DATE NOT NULL /* 생년월일 */
+);
+
+COMMENT ON TABLE Member IS '회원';
+
+COMMENT ON COLUMN Member.id IS '아이디';
+
+COMMENT ON COLUMN Member.status IS '회원상태';
+
+COMMENT ON COLUMN Member.password IS '비밀번호';
+
+COMMENT ON COLUMN Member.name IS '이름';
+
+COMMENT ON COLUMN Member.email IS '이메일';
+
+COMMENT ON COLUMN Member.address IS '주소';
+
+COMMENT ON COLUMN Member.phoneNum IS '핸드폰번호';
+
+COMMENT ON COLUMN Member.grade IS '회원등급';
+
+COMMENT ON COLUMN Member.lastLogin IS '마지막접속일자';
+
+COMMENT ON COLUMN Member.birth IS '생년월일';
+
+CREATE UNIQUE INDEX PK_Member
+	ON Member (
+		id ASC
+	);
+
+ALTER TABLE Member
+	ADD
+		CONSTRAINT PK_Member
+		PRIMARY KEY (
+			id
+		);
+
+/* 회원상태 */
+CREATE TABLE MemberStatus (
+	status NUMBER NOT NULL, /* 회원상태 */
+	statusName VARCHAR2(20) /* 회원상태상세 */
+);
+
+COMMENT ON TABLE MemberStatus IS '회원상태';
+
+COMMENT ON COLUMN MemberStatus.status IS '회원상태';
+
+COMMENT ON COLUMN MemberStatus.statusName IS '회원상태상세';
+
+CREATE UNIQUE INDEX PK_MemberStatus
+	ON MemberStatus (
+		status ASC
+	);
+
+ALTER TABLE MemberStatus
+	ADD
+		CONSTRAINT PK_MemberStatus
+		PRIMARY KEY (
+			status
+		);
+
+/* 주문 */
+CREATE TABLE MemberOrder (
+	orderNum NUMBER NOT NULL, /* 주문번호 */
+	id VARCHAR2(20) NOT NULL, /* 주문자 */
+	price NUMBER NOT NULL, /* 총가격 */
+	menu varchar2(100) NOT NULL, /* 메뉴(주문내역) */
+	orderStartTime DATE NOT NULL, /* 주문시각 */
+	orderCompleteTime DATE NOT NULL, /* 주문완료시각 */
+	orderComplete VARCHAR2(10) NOT NULL, /* 주문완료여부(boolean) */
+	branchCode NUMBER NOT NULL, /* 매장번호 */
+	deliveryNum NUMBER NOT NULL /* 맥딜리버리주문번호 */
+);
+
+COMMENT ON TABLE MemberOrder IS '주문';
+
+COMMENT ON COLUMN MemberOrder.orderNum IS '주문번호';
+
+COMMENT ON COLUMN MemberOrder.id IS '주문자';
+
+COMMENT ON COLUMN MemberOrder.price IS '총가격';
+
+COMMENT ON COLUMN MemberOrder.menu IS '메뉴(주문내역)';
+
+COMMENT ON COLUMN MemberOrder.orderStartTime IS '주문시각';
+
+COMMENT ON COLUMN MemberOrder.orderCompleteTime IS '주문완료시각';
+
+COMMENT ON COLUMN MemberOrder.orderComplete IS '주문완료여부(boolean)';
+
+COMMENT ON COLUMN MemberOrder.branchCode IS '매장번호';
+
+COMMENT ON COLUMN MemberOrder.deliveryNum IS '맥딜리버리주문번호';
+
+CREATE UNIQUE INDEX PK_MemberOrder
+	ON MemberOrder (
+		orderNum ASC
+	);
+
+ALTER TABLE MemberOrder
+	ADD
+		CONSTRAINT PK_MemberOrder
+		PRIMARY KEY (
+			orderNum
+		);
+
+/* 매출 */
+CREATE TABLE Sales (
+	salesDate DATE NOT NULL, /* 매출일자 */
+	branchCode NUMBER NOT NULL, /* 매장번호 */
+	totalDailySales NUMBER NOT NULL /* 매출액 */
+);
+
+COMMENT ON TABLE Sales IS '매출';
+
+COMMENT ON COLUMN Sales.salesDate IS '매출일자';
+
+COMMENT ON COLUMN Sales.branchCode IS '매장번호';
+
+COMMENT ON COLUMN Sales.totalDailySales IS '매출액';
+
+CREATE UNIQUE INDEX PK_Sales
+	ON Sales (
+		salesDate ASC,
+		branchCode ASC
+	);
+
+ALTER TABLE Sales
+	ADD
+		CONSTRAINT PK_Sales
+		PRIMARY KEY (
+			salesDate,
+			branchCode
+		);
+
+/* 관리자 */
+CREATE TABLE Admin (
+	id VARCHAR2(20) NOT NULL, /* 아이디 */
+	branchCode NUMBER NOT NULL, /* 매장번호 */
+	name VARCHAR2(20) NOT NULL, /* 관리자이름 */
+	password VARCHAR2(200) NOT NULL /* 비밀번호 */
+);
+
+COMMENT ON TABLE Admin IS '관리자';
+
+COMMENT ON COLUMN Admin.id IS '아이디';
+
+COMMENT ON COLUMN Admin.branchCode IS '매장번호';
+
+COMMENT ON COLUMN Admin.name IS '관리자이름';
+
+COMMENT ON COLUMN Admin.password IS '비밀번호';
+
+CREATE UNIQUE INDEX PK_Admin
+	ON Admin (
+		id ASC
+	);
+
+ALTER TABLE Admin
+	ADD
+		CONSTRAINT PK_Admin
+		PRIMARY KEY (
+			id
+		);
+
+/* 권한 */
+CREATE TABLE Role (
+	id VARCHAR2(20) NOT NULL, /* 아이디 */
+	role VARCHAR2(100) NOT NULL /* 권한 */
+);
+
+COMMENT ON TABLE Role IS '권한';
+
+COMMENT ON COLUMN Role.id IS '아이디';
+
+COMMENT ON COLUMN Role.role IS '권한';
+
+CREATE UNIQUE INDEX PK_Role
+	ON Role (
+		id ASC
+	);
+
+ALTER TABLE Role
+	ADD
+		CONSTRAINT PK_Role
+		PRIMARY KEY (
+			id
+		);
+
+/* 버거세트 */
+CREATE TABLE BugerSet (
+	setMenuName VARCHAR2(100) NOT NULL, /* 세트이름 */
+	dessert VARCHAR2(100) NOT NULL, /* 디저트 */
+	drink VARCHAR2(100) NOT NULL, /* 음료 */
+	menuName VARCHAR2(100) NOT NULL /* 메뉴이름(버거이름) */
+);
+
+COMMENT ON TABLE BugerSet IS '버거세트';
+
+COMMENT ON COLUMN BugerSet.setMenuName IS '세트이름';
+
+COMMENT ON COLUMN BugerSet.dessert IS '디저트';
+
+COMMENT ON COLUMN BugerSet.drink IS '음료';
+
+COMMENT ON COLUMN BugerSet.menuName IS '메뉴이름(버거이름)';
+
+CREATE UNIQUE INDEX PK_BugerSet
+	ON BugerSet (
+		setMenuName ASC
+	);
+
+ALTER TABLE BugerSet
+	ADD
+		CONSTRAINT PK_BugerSet
+		PRIMARY KEY (
+			setMenuName
+		);
+
+/* 맥딜리버리 */
+CREATE TABLE McDelivery (
+	deliveryNum NUMBER NOT NULL, /* 맥딜리버리주문번호 */
+	address VARCHAR2(200) /* 주소 */
+);
+
+COMMENT ON TABLE McDelivery IS '맥딜리버리';
+
+COMMENT ON COLUMN McDelivery.deliveryNum IS '맥딜리버리주문번호';
+
+COMMENT ON COLUMN McDelivery.address IS '주소';
+
+CREATE UNIQUE INDEX PK_McDelivery
+	ON McDelivery (
+		deliveryNum ASC
+	);
+
+ALTER TABLE McDelivery
+	ADD
+		CONSTRAINT PK_McDelivery
+		PRIMARY KEY (
+			deliveryNum
+		);
+
+/* 매장메뉴 */
+CREATE TABLE ResMenu (
+	branchCode NUMBER NOT NULL, /* 매장번호 */
+	menuName VARCHAR2(100) NOT NULL /* 메뉴이름 */
+);
+
+COMMENT ON TABLE ResMenu IS '매장메뉴';
+
+COMMENT ON COLUMN ResMenu.branchCode IS '매장번호';
+
+COMMENT ON COLUMN ResMenu.menuName IS '메뉴이름';
+
+CREATE UNIQUE INDEX PK_ResMenu
+	ON ResMenu (
+		branchCode ASC,
+		menuName ASC
+	);
+
+ALTER TABLE ResMenu
+	ADD
+		CONSTRAINT PK_ResMenu
+		PRIMARY KEY (
+			branchCode,
+			menuName
+		);
+
+ALTER TABLE Event
+	ADD
+		CONSTRAINT FK_Admin_TO_Event
+		FOREIGN KEY (
+			writer
+		)
+		REFERENCES Admin (
+			id
+		);
+
+ALTER TABLE Cart
+	ADD
+		CONSTRAINT FK_Member_TO_Cart
+		FOREIGN KEY (
+			id
+		)
+		REFERENCES Member (
+			id
+		);
+
+ALTER TABLE Menu
+	ADD
+		CONSTRAINT FK_MenuType_TO_Menu
+		FOREIGN KEY (
+			menuType
+		)
+		REFERENCES MenuType (
+			menuType
+		);
+
+ALTER TABLE Nutrient
+	ADD
+		CONSTRAINT FK_Menu_TO_Nutrient
+		FOREIGN KEY (
+			menuName
+		)
+		REFERENCES Menu (
+			menuName
+		);
+
+ALTER TABLE Member
+	ADD
+		CONSTRAINT FK_MemberStatus_TO_Member
+		FOREIGN KEY (
+			status
+		)
+		REFERENCES MemberStatus (
+			status
+		);
+
+ALTER TABLE MemberOrder
+	ADD
+		CONSTRAINT FK_Member_TO_MemberOrder
+		FOREIGN KEY (
+			id
+		)
+		REFERENCES Member (
+			id
+		);
+
+ALTER TABLE MemberOrder
+	ADD
+		CONSTRAINT FK_Restaurant_TO_MemberOrder
+		FOREIGN KEY (
+			branchCode
+		)
+		REFERENCES Restaurant (
+			branchCode
+		);
+
+ALTER TABLE MemberOrder
+	ADD
+		CONSTRAINT FK_McDelivery_TO_MemberOrder
+		FOREIGN KEY (
+			deliveryNum
+		)
+		REFERENCES McDelivery (
+			deliveryNum
+		);
+
+ALTER TABLE Sales
+	ADD
+		CONSTRAINT FK_Restaurant_TO_Sales
+		FOREIGN KEY (
+			branchCode
+		)
+		REFERENCES Restaurant (
+			branchCode
+		);
+
+ALTER TABLE Admin
+	ADD
+		CONSTRAINT FK_Restaurant_TO_Admin
+		FOREIGN KEY (
+			branchCode
+		)
+		REFERENCES Restaurant (
+			branchCode
+		);
+
+ALTER TABLE Role
+	ADD
+		CONSTRAINT FK_Member_TO_Role
+		FOREIGN KEY (
+			id
+		)
+		REFERENCES Member (
+			id
+		);
+
+ALTER TABLE Role
+	ADD
+		CONSTRAINT FK_Admin_TO_Role
+		FOREIGN KEY (
+			id
+		)
+		REFERENCES Admin (
+			id
+		);
+
+ALTER TABLE BugerSet
+	ADD
+		CONSTRAINT FK_Menu_TO_BugerSet
+		FOREIGN KEY (
+			menuName
+		)
+		REFERENCES Menu (
+			menuName
+		);
+
+ALTER TABLE ResMenu
+	ADD
+		CONSTRAINT FK_Restaurant_TO_ResMenu
+		FOREIGN KEY (
+			branchCode
+		)
+		REFERENCES Restaurant (
+			branchCode
+		);
+
+ALTER TABLE ResMenu
+	ADD
+		CONSTRAINT FK_Menu_TO_ResMenu
+		FOREIGN KEY (
+			menuName
+		)
+		REFERENCES Menu (
+			menuName
+		);
