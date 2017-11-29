@@ -6,7 +6,7 @@
 <div class="container" style="margin-top: 80px;">
 	<div class="row">
 		<div class="col-xs-12" style="text-align: center;">
-			<span style="color:#fff; font-family: 'Hanna', serif; font-size: 40px;">비밀번호 찾기</span>
+			<span style="color:#fff; font-family: 'Hanna', serif; font-size: 40px;">회원가입</span>
 		</div>
 		
 	</div>	
@@ -20,7 +20,7 @@
 		<div class="col-xs-12" style="margin-left: auto; margin-right: auto; z-index:2;">
 			<div style="z-index: 1;">
 				<center>
-					<input type="text" id="ID" name="ID" style="width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
+					<input type="text" id="id" name="id" style="width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
 				</center>
 			</div>
 		</div>
@@ -34,7 +34,7 @@
 		<div class="col-xs-12" style="margin-left: auto; margin-right: auto; z-index:2;">
 			<div style="z-index: 1;">
 				<center>
-					<input type="text" id="PASSWORD" name="PASSWORD" style="width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
+					<input type="password" id="password" name="password" style="width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
 				</center>
 			</div>
 		</div>
@@ -49,7 +49,21 @@
 		<div class="col-xs-12" style="margin-left: auto; margin-right: auto; z-index:2;">
 			<div style="z-index: 1;">
 				<center>
-					<input type="text" id="NAME" name="NAME" style="width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
+					<input type="text" id="name" name="name" style="width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
+				</center>
+			</div>
+		</div>
+		
+		<div class="col-xs-12" style="margin-left: auto; margin-right: auto; height: 36px;">
+			<span id="LBIRTH" style="color: #fff; font-family: 'Hanna', serif; font-size: 20px; left: 40px; top: 5px; position: relative; z-index:3">
+				BIRTH
+			</span>
+		</div>
+		
+		<div class="col-xs-12" style="margin-left: auto; margin-right: auto; z-index:2;">
+			<div style="z-index: 1;">
+				<center>
+					<input type="date" id="birth" name="birth" style="font-family: 'Hanna', serif; width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
 				</center>
 			</div>
 		</div>
@@ -63,7 +77,7 @@
 		<div class="col-xs-12" style="margin-left: auto; margin-right: auto; z-index:2;">
 			<div style="z-index: 1;">
 				<center>
-					<input type="text" id="EMAIL" name="EMAIL" style="width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
+					<input type="text" id="email" name="email" style="width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
 				</center>
 			</div>
 		</div>
@@ -77,7 +91,7 @@
 		<div class="col-xs-12" style="margin-left: auto; margin-right: auto; z-index:2;">
 			<div style="z-index: 1;">
 				<center>
-					<input type="text" id="ADDRESS" name="ADDRESS" style="width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
+					<input type="text" id="address" name="address" style="width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
 				</center>
 			</div>
 		</div>
@@ -91,7 +105,7 @@
 		<div class="col-xs-12" style="margin-left: auto; margin-right: auto; z-index:2;">
 			<div style="z-index: 1;">
 				<center>
-					<input type="text" id="PHONE" name="PHONE" style="width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
+					<input type="text" id="phoneNum" name="phoneNum" style="width: 250px; padding-left: 10px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
 				</center>
 			</div>
 		</div>

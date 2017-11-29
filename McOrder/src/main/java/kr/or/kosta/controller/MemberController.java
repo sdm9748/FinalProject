@@ -7,6 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
 
 import kr.or.kosta.dto.Member;
@@ -25,14 +27,31 @@ public class MemberController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	
+	// 로그인 화면
+	@RequestMapping("/login.htm")
+	public String login() {
+		return "login.member";
+	}
+	
 	// 회원가입 페이지 get 방식으로 폼만 보여주기
+	@RequestMapping(value="/join.htm", method=RequestMethod.GET)
 	public String showJoinForm() {
-		return null;
+		return "join.member";
 	}
 	
 	// 회원가입 post 방식으로 폼에서 넘어오면!!! 들어온 패스워드 암호화 set해서 넘겨!!!!!
-	public String joinMember(Member member) {
-		return null;
+	@RequestMapping(value="/join.htm", method=RequestMethod.POST)
+	public String joinMember(Member member) throws Exception {
+		member.setPassword(this.bCryptPasswordEncoder.encode(member.getPassword()));
+		memberService.joinMember(member);
+		return "login.member";
+	}
+	
+	// 로그인 성공시 로그인 한 사람이 관리자인지, 사용자인지 확인 후 redirect
+	@RequestMapping(value="/loginSuccess.htm", method=RequestMethod.GET)
+	public String loginSuccess() {
+		
+		return "login.member";
 	}
 	
 	// 로그인 get 방식으로 뷰단만 보여주기 시큐리티xml에 뷰단으로 사용할거임

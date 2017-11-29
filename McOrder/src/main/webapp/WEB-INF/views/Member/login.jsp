@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <script src="${pageContext.request.contextPath}/resources/js/login.js"></script> <!-- Modernizr -->
 <div id="content">
 	<div class="container" style="margin-top: 80px;">
@@ -86,6 +87,6 @@
     	 		</c:if>
 			</div>
 		</c:if>
-					
+		
 	</div>	
 </div>

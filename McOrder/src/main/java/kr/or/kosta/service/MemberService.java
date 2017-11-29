@@ -6,15 +6,21 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.or.kosta.dao.MemberDao;
 import kr.or.kosta.dto.Member;
 
 @Service
 public class MemberService {
+	
 	@Autowired
 	private SqlSession session;
 	
 	// 회원가입
 	public void joinMember(Member member) {
+		MemberDao dao = session.getMapper(MemberDao.class);
+		
+		// member 테이블에 회원아이디 insert
+		dao.join(member);
 		
 	}
 	

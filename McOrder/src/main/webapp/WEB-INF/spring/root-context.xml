@@ -17,7 +17,7 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
-		<property name="username" value="springuser" />
+		<property name="username" value="mcorder" />
 		<property name="password" value="1004" />
 	</bean>
 
@@ -55,8 +55,8 @@
 		proxy-target-class="true" />
 	<!-- transaction end -->
 
-	<bean id="bCryptPasswordEncoder"
-		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<constructor-arg name="strength" value="20"></constructor-arg>
 	</bean>
 
 	<bean

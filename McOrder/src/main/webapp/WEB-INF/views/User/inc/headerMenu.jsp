@@ -28,7 +28,7 @@
 								<a class="gn-icon gn-icon-search"><span>Search</span></a>
 							</li>
 							<li>
-								<a href="${pageContext.request.contextPath}/User/main.htm" class="gn-icon gn-icon-download">메인화면</a>
+								<a href="${pageContext.request.contextPath}/index.htm" class="gn-icon gn-icon-download">메인화면</a>
 								<ul class="gn-submenu">
 									<li><a href="${pageContext.request.contextPath}/User/mainmenu.htm" class="gn-icon gn-icon-illustrator">매장QR코드 찍었을때</a></li>
 									<li><a href="${pageContext.request.contextPath}/User/selectMenu.htm" class="gn-icon gn-icon-photoshop">메뉴 선택시</a></li>
@@ -41,7 +41,8 @@
 								<ul class="gn-submenu">
 									<li><a href="${pageContext.request.contextPath}/User/map.htm" class="gn-icon gn-icon-pictures">지도</a></li>
 									<li><a href="${pageContext.request.contextPath}/User/join.htm" class="gn-icon gn-icon-videos">회원가입</a></li>
-									<li><a href="${pageContext.request.contextPath}/User/login.htm" class="gn-icon gn-icon-videos">로그인</a></li>
+									<li><a href="${pageContext.request.contextPath}/login.htm" class="gn-icon gn-icon-videos">로그인</a></li>
+									<li><a href="${pageContext.request.contextPath}/logout.htm" class="gn-icon gn-icon-videos">로그아웃</a></li>
 								</ul>
 							</li>
 						</ul>
