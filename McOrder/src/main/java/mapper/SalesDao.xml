@@ -5,5 +5,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <mapper namespace="kr.or.kosta.dao.SalesDao">
-	
+
+<select id="getSalesList" resultType="kr.or.kosta.dto.Sales">
+	select salesdate, totaldailysales 
+	from sales 
+	where branchcode = #{branchCode}
+</select>
+
+<!-- public List<Order> salesDetail(int branchCode, Date salesDate); -->
+<!-- <select id="salesDetail" resultType="kr.or.kosta.dto.Order">
+	select id, price, menu, orderStartTime, orderCompleteTime, branchCode
+	from MemberOrder
+	where branchCode= #{param1} and orderCompleteTime like '%${param2}%'
+	order by orderCompleteTime desc   
+</select> -->
+
+<select id="salesDetail" resultType="kr.or.kosta.dto.Order">
+   select id, price, menu, orderStartTime, to_char(orderCompleteTime, 'YYYY-MM-DD HH24:MI:SS') orderCompleteTimestr, branchcode
+   from memberorder
+   where branchcode= #{param1} and substr(orderCompleteTime,1,10) = #{param2}   
+ </select>
+
+
+
+
 </mapper>

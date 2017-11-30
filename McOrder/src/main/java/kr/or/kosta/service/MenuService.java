@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.or.kosta.dao.MenuDao;
 import kr.or.kosta.dto.Menu;
 
 @Service
@@ -28,12 +29,24 @@ public class MenuService {
 	
 	// 진짜 메뉴 상세보기
 	public Menu getMenuDetail(String menuName) {
-		return null;
+		
+		MenuDao menudao = session.getMapper(MenuDao.class);
+		Menu menu = menudao.getMenuDetail(menuName);
+		
+		return menu;
 	}
 	
 	// 최상위 관리자가 메뉴등록
 	public int addMenu(Menu menu) {
 		return 0;
+	}
+	
+	// 최상위 관리자가 보는 메뉴리스트 한나 
+	public List<Menu> getMenuList(){
+		
+		MenuDao menudao = session.getMapper(MenuDao.class);
+		List<Menu> list = menudao.getMenuList();
+		return list;
 	}
 	
 	// 하위 관리자가 최상위관리자가 등록한 메뉴 리스트들 중 판매원하는 메뉴들 체크해서 등록

@@ -1,11 +1,33 @@
 package kr.or.kosta.dto;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 public class Event {
 
 	private int eventNum;
 	private String eventImage;
 	private String eventTitle;
 	private String eventContent;
+	//단일 파일 업로드 추가//////////////////////////////////// (주호)
+	private String writer;
+	
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	private CommonsMultipartFile file;
+	public CommonsMultipartFile getFile() {
+		return file;
+	}
+	public void setFile(CommonsMultipartFile file) {
+		this.file = file;
+	}
+	
+	/////////////////////////////////////////////////
+
+	
 	public int getEventNum() {
 		return eventNum;
 	}

@@ -43,6 +43,7 @@
 				<security:user name="bk" password="bk" authorities="ROLE_USER"/>
 				<security:user name="0000" password="0000" authorities="ROLE_ADMIN"/>
 				<security:user name="1111" password="1111" authorities="ROLE_ADMIN"/>
+				<security:user name="0001" password="0000" authorities="ROLE_ADMIN"/>
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>

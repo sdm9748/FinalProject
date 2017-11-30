@@ -10,6 +10,37 @@ public class Menu {
 	private Date startDate;
 	private Date endDate;
 	private String menuImage;
+	private String weight; // 중량 추가
+	private String calorie; // 칼로리 추가
+	private String protein; // 단백질
+	private String natrium; // 나트륨
+	
+	
+	
+	public String getWeight() {
+		return weight;
+	}
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+	public String getCalorie() {
+		return calorie;
+	}
+	public void setCalorie(String calorie) {
+		this.calorie = calorie;
+	}
+	public String getProtein() {
+		return protein;
+	}
+	public void setProtein(String protein) {
+		this.protein = protein;
+	}
+	public String getNatrium() {
+		return natrium;
+	}
+	public void setNatrium(String natrium) {
+		this.natrium = natrium;
+	}
 	public String getMenuName() {
 		return menuName;
 	}
@@ -49,8 +80,11 @@ public class Menu {
 	@Override
 	public String toString() {
 		return "Menu [menuName=" + menuName + ", price=" + price + ", menuType=" + menuType + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", menuImage=" + menuImage + "]";
+				+ ", endDate=" + endDate + ", menuImage=" + menuImage + ", weight=" + weight + ", calorie=" + calorie
+				+ ", protein=" + protein + ", natrium=" + natrium + "]";
 	}
+	
+	
 	
 	
 	

@@ -8,7 +8,7 @@
 	function completeOrder(seq) {
 		console.log("왔나 orderNum " + seq);
 		var data = {orderNum : seq};
-		var _data = JSON.stringify(data);
+		var _data = JSON.stringify(data); 
 		console.log("출발 데이터!!"+ _data);
 	      $.ajax({
 	          type: "POST",
@@ -26,7 +26,7 @@
 		               if(obj.orderComplete == 0){
 		            	   opr += "<button id='orderButton' class='btn btn-warning' onclick='completeOrder("+obj.orderNum+")'>주문완료하기</button></td>";
 		               }else{
-		            	   opr += obj.orderCompleteTime+"</td>";
+		            	   opr += obj.orderCompleteTimestr+"</td>";
 		               }
 		               $('#orderListBody').append(opr);
 		               
@@ -76,7 +76,7 @@
 						<button id="orderButton" onclick="completeOrder(${order.orderNum})" class="btn btn-warning">주문완료하기</button>
 					</c:when>
 					<c:otherwise>
-						${order.orderCompleteTime }
+						${order.orderCompleteTimestr}
 					</c:otherwise>
 				</c:choose>
 				</td>

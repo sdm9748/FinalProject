@@ -4,6 +4,11 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/admin.css">
 <div id="menu">
 	<div class="col-sm-12" style="text-align: center; margin-top: 25px;">
+		<a href="${pageContext.request.contextPath}/Admin/manageEvent.htm">
+			<span style="color:#fff; font-family: 'Hanna', serif; font-size: 20px;">이벤트 관리</span><br>
+		</a>
+	</div>
+	<div class="col-sm-12" style="text-align: center; margin-top: 25px;">
 		<a href="${pageContext.request.contextPath}/Admin/manageOrder.htm">
 			<span style="color:#fff; font-family: 'Hanna', serif; font-size: 25px;">주문 관리</span><br>
 		</a>

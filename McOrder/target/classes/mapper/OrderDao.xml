@@ -4,13 +4,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.kosta.dao.OrderDao">
-	<!-- 주문 리스트 구하기 -->
+	<!-- 주문 리스트 구하기  한나-->
    	<select id="getCompletedOrder" resultType="kr.or.kosta.dto.Order">
-		select orderNum, mo.id, price, menu, orderStartTime, orderCompleteTime
+		select orderNum, mo.id, price, menu, orderStartTime, 
+		to_char(orderCompleteTime, 'YYYY-MM-DD HH24:MI:SS') orderCompleteTimestr
 		, orderComplete, branchCode, deliveryNum, m.phoneNum
 		from memberorder mo ,member m 
 		where mo.id = m.id and branchCode=#{branchCode}
-		order by mo.orderComplete asc , mo.orderNum desc 
+		order by mo.orderComplete asc , mo.orderCompleteTime desc 
 	</select>  
 <!--    	<select id="getCompletedOrder" resultType="kr.or.kosta.dto.Order">
 		select *
@@ -23,12 +24,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		) where rn between #{param2} and #{param2} 
 		
 	</select> -->
-	<!-- 총 인원수 구하기 -->
+	<!-- 총 인원수 구하기  한나 -->
 	<select id="getCount" resultType="Integer">
 		select count(*) cnt
 		from memberorder
 	</select>
 	
+	<!--한나 주문완료 처리하기   -->
 	<update id="completeOrder">
 		update memberorder
 		set orderComplete=1, orderCompleteTime=sysdate

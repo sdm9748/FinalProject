@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/manageMenu.css">
 <div id="content">
@@ -16,46 +17,47 @@
 			</div>
 		</div>
 	</div>
-		<table>
+				<table>
 		<thead>
 			<tr>
-				<th style="text-align: center;">날짜</th>
-				<th style="text-align: center;">총 금액</th>
-				<th style="text-align: center;">날짜</th>
-				<th style="text-align: center;">총 금액</th>
+				<th style="text-align: center;">이름</th>
+				<th style="text-align: center;">종류</th>
+				<th style="text-align: center;">판매시작일</th>
+				<th style="text-align: center;">판매종료일</th>
+				<th style="text-align: center;">판매가격</th>
+				<th style="text-align: center;">대표이미지</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="menuListBody">
+		
+		<c:forEach items="${menuList}" var="menu">
 			<tr style="text-align: center;">
-				<td>1</td>
-				<td>Atualizar página da equipe</td>
+				<td><a href="detailMenu.htm?menuName=${menu.menuName}">${menu.menuName }</a></td>
+				<td>
+				<c:choose>
+					<c:when test="${menu.menuType == '1'}">
+						햄버거
+					</c:when>
+					<c:when test="${menu.menuType == '2'}">
+						사이드
+					</c:when>
+					<c:otherwise>
+						음료
+					</c:otherwise>
+				</c:choose>
+				</td>
+				<td>${menu.startDate}</td>
 				<td style="text-align: center;">
-					<a href="#"><span style="color:#000; font-family: 'Hanna', serif; font-size: 15px;">삭제</span></a>
+					${menu.endDate}
 				</td>
 				<td style="text-align: center;">
-					<a href="#"><span style="color:#000; font-family: 'Hanna', serif; font-size: 15px;">삭제</span></a>
+					${menu.price }
+				</td>
+				<td style="text-align: center;">
+				<img src="<%=request.getContextPath()%>/${menu.menuImage }" style="width: 100px; height: 100px">
 				</td>
 			</tr>
-			<tr style="text-align: center;">
-				<td>2</td>
-				<td>Design da nova marca</td>
-				<td style="text-align: center;">
-					<a href="#"><span style="color:#000; font-family: 'Hanna', serif; font-size: 15px;">수정</span></a> |
-				</td>
-				<td style="text-align: center;">
-					<a href="#"><span style="color:#000; font-family: 'Hanna', serif; font-size: 15px;">수정</span></a> |
-				</td>
-			</tr>
-			<tr style="text-align: center;">
-				<td>3</td>
-				<td>Encontrar desenvolvedor front-end</td>
-				<td style="text-align: center;">
-					<a href="#"><span style="color:#000; font-family: 'Hanna', serif; font-size: 15px;">수정</span></a> |
-				</td>
-				<td style="text-align: center;">
-				<	a href="#"><span style="color:#000; font-family: 'Hanna', serif; font-size: 15px;">수정</span></a> |
-				</td>
-			</tr>
+		</c:forEach>
 		</tbody>
-	</table>	
+	</table>
 </div>

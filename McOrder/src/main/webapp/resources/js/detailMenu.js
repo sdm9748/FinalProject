@@ -1,7 +1,7 @@
 $(function() {
-    $("#imgInp").on('change', function(){
+/*    $("#imgInp").on('change', function(){
         readURL(this);
-    });
+    });*/
 
     $('#addSide').click(function(){
     	var sidestr = '<div class="col-sm-4">'
@@ -40,7 +40,7 @@ $(function() {
     })
 });
 
-function readURL(input) {
+/*function readURL(input) {
     if (input.files && input.files[0]) {
     var reader = new FileReader();
 
@@ -50,4 +50,4 @@ function readURL(input) {
 
       reader.readAsDataURL(input.files[0]);
     }
-}
+}*/

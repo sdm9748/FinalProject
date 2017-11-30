@@ -5,6 +5,15 @@ import java.sql.Date;
 public class Sales {
 
 	private Date salesDate;
+	//
+	private String salesDate2;
+	public String getSalesDate2() {
+		return salesDate2;
+	}
+	public void setSalesDate2(String salesDate2) {
+		this.salesDate2 = salesDate2;
+	}
+	//
 	private int totalDailySales;
 	private int branchCode;
 	public Date getSalesDate() {

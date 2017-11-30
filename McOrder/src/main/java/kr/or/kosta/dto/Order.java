@@ -11,6 +11,15 @@ public class Order {
 	private String phoneNum;
 	private Date orderStartTime;
 	private Date orderCompleteTime;
+	//수정
+	private String orderCompleteTimestr;
+	public String getOrderCompleteTimestr() {
+		return orderCompleteTimestr;
+	}
+	public void setOrderCompleteTimestr(String orderCompleteTimestr) {
+		this.orderCompleteTimestr = orderCompleteTimestr;
+	}
+	// 
 	private String orderComplete; // 주문완료되면 0 이 1이된다
 	private int deliveryNum;
 	private int branchCode; // 한나 추가
