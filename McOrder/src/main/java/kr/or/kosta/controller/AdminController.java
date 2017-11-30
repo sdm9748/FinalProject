@@ -223,7 +223,7 @@ public class AdminController {
 	// 한나
 	// 주문내역리스트에서 주문완료버튼 누르면!!! 주문완료시각 생성되고 비동기로 주문내역 리스트 다시뿌려주자!!
 	@RequestMapping("completeOrderList.htm")
-	public View completeOrder(Principal principal, @RequestBody Order order, ModelMap map) {
+	public View completeOrder(Principal principal, @RequestBody Order order, ModelMap map) throws Exception {
 
 		int orderNum = order.getOrderNum();
 
