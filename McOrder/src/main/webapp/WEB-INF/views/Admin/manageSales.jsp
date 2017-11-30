@@ -14,7 +14,7 @@
 
 	$(function () {
 		
-		$('#selectDay').change(function() {
+		/* $('#selectDay').change(function() {
 			
 			var data = $('#selectDay').val();
 			console.log(data);
@@ -24,7 +24,7 @@
 				
 				
 			});
-		});
+		}); */
 		
 		
 	});

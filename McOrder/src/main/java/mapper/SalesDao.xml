@@ -26,6 +26,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    where branchcode= #{param1} and substr(orderCompleteTime,1,10) = #{param2}   
  </select>
 
+<!-- // 주문완료시 매출액에 자동 합산
+	public int addTotalSales(int branchCode, int price); -->
+<!-- 먼저 들어온 값 있는지 봐야해 -->
+
 
 
 
