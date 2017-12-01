@@ -76,9 +76,11 @@ public class OrderService {
 			 Date orderCompleteDate = order.getOrderCompleteTime();
 			 int price = order.getPrice();
 			 System.out.println("getSalesDate 널뜨기 전!! price는 얼마? " + price );
+//			 Sales sales = new Sales();
 			 Sales sales = orderdao.getSalesDate(branchCode, orderCompleteDate);
 			 System.out.println("sales 서비스 널인가  ? " + sales);
-			 if(sales.equals("")) {
+			 if(sales == null) {
+				 sales = new Sales();
 				 orderdao.addSalesDate(branchCode, orderCompleteDate);
 				 sales.setTotalDailySales(0);
 			 }
