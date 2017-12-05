@@ -7,23 +7,23 @@ package kr.or.kosta.dto;
 */ 
 public class Admin {
 
-	private int branchCode;
-	private String id;
+//	private int branchCode;
+	private String branchCode;
+	private String role;
 	private String name;
-	private String password;
 	
 	
-	public int getBranchCode() {
+	public String getBranchCode() {
 		return branchCode;
 	}
-	public void setBranchCode(int branchCode) {
+	public void setBranchCode(String branchCode) {
 		this.branchCode = branchCode;
 	}
-	public String getId() {
-		return id;
+	public String getRole() {
+		return role;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setRole(String role) {
+		this.role = role;
 	}
 	public String getName() {
 		return name;
@@ -31,15 +31,9 @@ public class Admin {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	@Override
 	public String toString() {
-		return "Admin [branchCode=" + branchCode + ", id=" + id + ", name=" + name + ", password=" + password + "]";
+		return "Admin [branchCode=" + branchCode + ", role=" + role + ", name=" + name + "]";
 	}
 	
 	

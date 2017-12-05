@@ -18,7 +18,7 @@
 			</div>
 		</div>
 	</div>
-	<se:authorize access="hasRole('ROLE_USER')">
+	<se:authorize access="hasRole('ROLE_TOPADMIN')">
 	<a class="btn btn-warning" style="width: 200px; margin-top: 30px;" href="${pageContext.request.contextPath}/Admin/manageMenu_rowadmin.htm">
 		<span style="color: #fff; font-size: 20px; font-family: 'Hanna', serif; margin-top: auto; margin-bottom: auto;">메뉴등록</span>
 	</a>
