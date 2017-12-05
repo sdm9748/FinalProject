@@ -12,15 +12,15 @@
                   http://www.springframework.org/schema/security
                   http://www.springframework.org/schema/security/spring-security.xsd
    ">
+   
    <!-- 공통 DB작업 -->
    <bean id="driverManagerDataSource"
       class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
       <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
-      <property name="username" value="springuser" />
+      <property name="username" value="mcorder" />
       <property name="password" value="1004" />
    </bean>
-
    <!-- JDBC Template 설정하기 -->
    <bean id="" class="org.springframework.jdbc.core.JdbcTemplate">
       <property name="dataSource" ref="driverManagerDataSource"></property>

@@ -8,12 +8,12 @@
  xsi:schemaLocation="http://www.springframework.org/schema/beans 
                      http://www.springframework.org/schema/beans/spring-beans.xsd
                      http://www.springframework.org/schema/context
-					http://www.springframework.org/schema/context/spring-context.xsd
-					http://www.springframework.org/schema/mvc
-					http://www.springframework.org/schema/mvc/spring-mvc.xsd
+					 http://www.springframework.org/schema/context/spring-context.xsd
+					 http://www.springframework.org/schema/mvc
+					 http://www.springframework.org/schema/mvc/spring-mvc.xsd
   					 http://www.springframework.org/schema/security 
   					 http://www.springframework.org/schema/security/spring-security.xsd
-  					  http://www.springframework.org/schema/tx 
+  					 http://www.springframework.org/schema/tx 
   					 http://www.springframework.org/schema/tx/spring-tx.xsd
   					 ">
 <!-- 
@@ -26,32 +26,10 @@
 	hasRole() = hasAuthority()
 	access="permitAll" 은 누구나 접근 가능하다는 것을 의미.
  -->
-<!--  	<security:http use-expressions="true">
-	    <security:csrf disabled="true" />
+  	<security:http use-expressions="true">
+	   <security:csrf disabled="true" />
 		<security:intercept-url pattern="/User/**" access="hasRole('ROLE_USER')" />
   		<security:intercept-url pattern="/Admin/**" access="hasRole('ROLE_ADMIN')" />
-  		<security:intercept-url pattern="/**" access="permitAll" />
-	    <security:form-login 
-	    	login-page="/login.htm"
-	    	authentication-failure-url="/login.htm?error"
-	    />
-	    <security:logout />       
-	</security:http>
-	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="bk" password="bk" authorities="ROLE_USER"/>
-				<security:user name="0000" password="0000" authorities="ROLE_ADMIN"/>
-				<security:user name="1111" password="1111" authorities="ROLE_ADMIN"/>
-				<security:user name="0001" password="0000" authorities="ROLE_ADMIN"/>
-			</security:user-service>
-		</security:authentication-provider>
-	</security:authentication-manager> -->
-
- 	<security:http use-expressions="true">
-	    <security:csrf disabled="true" />
-		<security:intercept-url pattern="/User/**" access="hasRole('ROLE_USER')" />
-  		<security:intercept-url pattern="/Admin/**" access="hasRole('ROLE_ADMIN','ROLE_TOPADMIN')" />
   		<security:intercept-url pattern="/login.htm" access="!hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_TOPADMIN')" />
   		<security:intercept-url pattern="/join.htm" access="!hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_TOPADMIN')" />
   		<security:intercept-url pattern="/**" access="permitAll" />
@@ -67,11 +45,12 @@
 			<security:jdbc-user-service 
 			data-source-ref="driverManagerDataSource"
  			users-by-username-query="SELECT id as username, password as password, 1 as enabled FROM member WHERE id=?"
- 			authorities-by-username-query="SELECT id as username, role as authority FROM member WHERE id=?"/>
-			<security:password-encoder ref="bCryptPasswordEncoder"/>
+ 			authorities-by-username-query="SELECT id as username, role as authority FROM member WHERE id=?" />
+			<security:password-encoder ref="bCryptPasswordEncoder"/> 
 		</security:authentication-provider>
 	</security:authentication-manager>
 	
 	<bean id="memberService" class="kr.or.kosta.service.MemberService"></bean>
+
 
 </beans>

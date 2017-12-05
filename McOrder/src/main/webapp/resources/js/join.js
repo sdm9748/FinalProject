@@ -1,86 +1,143 @@
 $(function(){
-	$('#ID').focus(function(){
+	
+	$('#id').focus(function(){
 		$('#LID').animate({"top": "5px", "color": "#fff", "font-size": "20px"}, 200);
 	})
 	
-	$('#ID').blur(function(){
-		if($("#ID").val() == null || $("#ID").val() == ""){
+	$('#id').blur(function(){
+		if($("#id").val() == null || $("#id").val() == ""){
 			$('#LID').animate({"top": "35px", "color": "#000", "font-size": "25px"}, 200);
 		}
 	})
 	
 	$('#LID').click(function(){
-		$("#ID").focus();
+		$("#id").focus();
 	})
 	
-	$('#PASSWORD').focus(function(){
+	$('#password').focus(function(){
 		$('#LPASSWORD').animate({"top": "5px", "color": "#fff", "font-size": "20px"}, 200);
 	})
 	
-	$('#PASSWORD').blur(function(){
-		if($("#PASSWORD").val() == null || $("#PASSWORD").val() == ""){
+	$('#password').blur(function(){
+		if($("#password").val() == null || $("#password").val() == ""){
 			$('#LPASSWORD').animate({"top": "35px", "color": "#000", "font-size": "25px"}, 200);
 		}
 	})
 	
 	$('#LPASSWORD').click(function(){
-		$("#PASSWORD").focus();
+		$("#password").focus();
 	})
 	
-	$('#NAME').focus(function(){
+	$('#name').focus(function(){
 		$('#LNAME').animate({"top": "5px", "color": "#fff", "font-size": "20px"}, 200);
 	})
 	
-	$('#NAME').blur(function(){
-		if($("#NAME").val() == null || $("#NAME").val() == ""){
+	$('#name').blur(function(){
+		if($("#name").val() == null || $("#name").val() == ""){
 			$('#LNAME').animate({"top": "35px", "color": "#000", "font-size": "25px"}, 200);
 		}
 	})
 	
 	$('#LNAME').click(function(){
-		$("#NAME").focus();
+		$("#name").focus();
 	})
 	
-	$('#PHONE').focus(function(){
+	$('#phoneNum').focus(function(){
 		$('#LPHONE').animate({"top": "5px", "color": "#fff", "font-size": "20px"}, 200);
 	})
 	
-	$('#PHONE').blur(function(){
-		if($("#PHONE").val() == null || $("#PHONE").val() == ""){
+	$('#phoneNum').blur(function(){
+		if($("#phoneNum").val() == null || $("#phoneNum").val() == ""){
 			$('#LPHONE').animate({"top": "35px", "color": "#000", "font-size": "25px"}, 200);
 		}
 	})
 	
 	$('#LPHONE').click(function(){
-		$("#PHONE").focus();
+		$("#phoneNum").focus();
 	})
 	
-	$('#ADDRESS').focus(function(){
+	$('#birth').focus(function(){
+		$('#LBIRTH').animate({"top": "5px", "color": "#fff", "font-size": "20px"}, 200);
+	})
+	
+	$('#birth').blur(function(){
+		if($("#birth").val() == null || $("#birth").val() == ""){
+			$('#LBIRTH').animate({"top": "35px", "color": "#000", "font-size": "25px"}, 200);
+		}
+	})
+	
+	$('#LBIRTH').click(function(){
+		$("#birth").focus();
+	})
+	
+	$('#address').focus(function(){
 		$('#LADDRESS').animate({"top": "5px", "color": "#fff", "font-size": "20px"}, 200);
 	})
 	
-	$('#ADDRESS').blur(function(){
-		if($("#ADDRESS").val() == null || $("#ADDRESS").val() == ""){
+	$('#address').click(function(){
+		goPopup();
+	})
+	
+	$('#address').blur(function(){
+		if($("#address").val() == null || $("#address").val() == ""){
 			$('#LADDRESS').animate({"top": "35px", "color": "#000", "font-size": "25px"}, 200);
 		}
 	})
 	
 	$('#LADDRESS').click(function(){
-		$("#ADDRESS").focus();
+		$("#address").focus();
+		goPopup();
 	})
 	
-	$('#EMAIL').focus(function(){
+	$('#email').focus(function(){
 		$('#LEMAIL').animate({"top": "5px", "color": "#fff", "font-size": "20px"}, 200);
 	})
 	
-	$('#EMAIL').blur(function(){
-		if($("#EMAIL").val() == null || $("#EMAIL").val() == ""){
+	$('#email').blur(function(){
+		if($("#email").val() == null || $("#email").val() == ""){
 			$('#LEMAIL').animate({"top": "35px", "color": "#000", "font-size": "25px"}, 200);
 		}
 	})
 	
 	$('#LEMAIL').click(function(){
-		$("#EMAIL").focus();
+		$("#email").focus();
+	})
+	
+	// ===============중복체크======================
+	$('#dupl').click(function(){
+		if($('#id').val() == null || $('#id').val() == ""){
+			$('#duplcheck').html("아이디를 입력해주세요.");
+		} else {
+			$.ajax({
+				url: "dupl.htm",
+				type: "POST",
+				data: {"id": $('#id').val()},
+				success: function(data){
+					console.log(data.row);
+					if(data.row == 1){
+						$('#duplcheck').html("존재하는 아이디입니다.");
+					} else {
+						$('#duplcheck').html("사용가능한 아이디입니다.");
+					}
+				}
+			})
+		}
+	})
+	
+	// ===============예외체크======================
+	$('#sub').click(function(){
+		var korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|" "|\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/;
+		var name = /[가-힣]/;
+
+		if($('#id').val() == null || $('#id').val() == ""){
+			alert("아이디를 입력해주세요");
+			$('#id').focus();
+			return false;
+		} else if(korean.test($('#id').val())){
+			
+		}
+			
+
 	})
 	
 })

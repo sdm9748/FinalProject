@@ -32,7 +32,14 @@
 	<!-- Tiles 관련 Resolver 구성  -->
 	<bean id="urlBasedViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 	 	<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
-	</bean> 	
+	</bean> 
+		
+	<bean id="transactionManager"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+   		<property name="dataSource" ref="driverManagerDataSource" /> 
+   </bean>	
+   
+   <!-- @Transactional 적용된 곳에 (commit , rollback 관리) -->
+   <tx:annotation-driven transaction-manager="transactionManager" />
 </beans>
 
 

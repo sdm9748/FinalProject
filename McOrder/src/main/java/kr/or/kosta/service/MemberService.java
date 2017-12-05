@@ -26,7 +26,6 @@ public class MemberService implements AuthenticationSuccessHandler {
 	// 회원가입
 	public void joinMember(Member member) {
 		MemberDao dao = session.getMapper(MemberDao.class);
-		
 		// member 테이블에 회원아이디 insert
 		dao.join(member);
 		

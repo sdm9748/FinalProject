@@ -70,6 +70,7 @@ public class MemberController {
 	// 회원가입 post 방식으로 폼에서 넘어오면!!! 들어온 패스워드 암호화 set해서 넘겨!!!!!
 	@RequestMapping(value="/join.htm", method=RequestMethod.POST)
 	public String joinMember(Member member) throws Exception {
+		System.out.println("회원가입컨트롤러왔고 주소는 들어왔나 ? : " + member.getAddress());
 		member.setPassword(this.bCryptPasswordEncoder.encode(member.getPassword()));
 		memberService.joinMember(member);
 		return "login.member";

@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="join" parameterType="kr.or.kosta.dto.Member">
 		insert into member(id, password, name, email, address, phonenum, birth, role)
-		values(#{id}, #{password}, #{name}, #{email}, #{address}, #{phoneNum}, #{birth}, 'ROLE_USER')
+		values(#{id}, #{password}, #{name}, #{email}, #{address}, #{phoneNum}, #{birth}, 'ROLE_TOPADMIN')
 	</insert>
 
 	<update id="lastTime">
