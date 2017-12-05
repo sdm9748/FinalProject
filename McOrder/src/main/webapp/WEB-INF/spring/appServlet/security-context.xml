@@ -26,17 +26,17 @@
 	hasRole() = hasAuthority()
 	access="permitAll" 은 누구나 접근 가능하다는 것을 의미.
  -->
+	    	<!-- authentication-success-handler-ref="memberService" -->
   	<security:http use-expressions="true">
 	   <security:csrf disabled="true" />
 		<security:intercept-url pattern="/User/**" access="hasRole('ROLE_USER')" />
-  		<security:intercept-url pattern="/Admin/**" access="hasRole('ROLE_ADMIN')" />
+  		<security:intercept-url pattern="/Admin/**" access="hasAnyRole('ROLE_ADMIN','ROLE_TOPADMIN')" />
   		<security:intercept-url pattern="/login.htm" access="!hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_TOPADMIN')" />
   		<security:intercept-url pattern="/join.htm" access="!hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_TOPADMIN')" />
   		<security:intercept-url pattern="/**" access="permitAll" />
 	    <security:form-login 
 	    	login-page="/login.htm"
 	    	authentication-failure-url="/login.htm?error"
-	    	authentication-success-handler-ref="memberService"
 	    />
 	    <security:logout logout-success-url="/index.htm" logout-url="/logout.htm" invalidate-session="true"/>       
 	</security:http>
@@ -49,7 +49,6 @@
 			<security:password-encoder ref="bCryptPasswordEncoder"/> 
 		</security:authentication-provider>
 	</security:authentication-manager>
-	
 	<bean id="memberService" class="kr.or.kosta.service.MemberService"></bean>
 
 
