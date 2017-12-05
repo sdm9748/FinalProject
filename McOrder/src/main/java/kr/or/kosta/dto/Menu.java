@@ -1,6 +1,13 @@
 package kr.or.kosta.dto;
-
+/*
+* @FileName : Menu
+* @Project : McOrder
+* @Date : 2017.12.27 
+* @Author : 최한나, 김수진, 염주호
+*/ 
 import java.sql.Date;
+
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 public class Menu {
 
@@ -15,7 +22,15 @@ public class Menu {
 	private String protein; // 단백질
 	private String natrium; // 나트륨
 	
-	
+	//파일업로드
+		private CommonsMultipartFile file;
+		public CommonsMultipartFile getFile() {
+			return file;
+		}
+		public void setFile(CommonsMultipartFile file) {
+			this.file = file;
+		}
+		//////////////////////
 	
 	public String getWeight() {
 		return weight;

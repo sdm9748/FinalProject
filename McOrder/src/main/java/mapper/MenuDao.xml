@@ -2,13 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 
-private String menuName;
-	private int price;
-	private int menuType;
-	private Date startDate;
-	private Date endDate;
-	private String menuImage; -->
+
 <mapper namespace="kr.or.kosta.dao.MenuDao">
 	<select id="getMenuList" resultType="kr.or.kosta.dto.Menu">
 		select menuName, price, menuType, startDate, endDate, menuImage
@@ -16,14 +10,43 @@ private String menuName;
 		order by menuType asc
 	</select>
 	<select id="getMenuDetail" resultType="kr.or.kosta.dto.Menu">
-		<!-- select menuName, price, menuType, startDate, endDate, menuImage
-		from Menu
-		where menuName=#{menuName} -->
-		
 		select *
 		from Menu m, Nutrient n
 		where m.menuName = n.menuName
         and m.menuName=#{menuName} 
-		
+	</select>
+	<!--여기부터 주호 -->
+	<insert id="addMenu" parameterType="kr.or.kosta.dto.Menu">
+		insert into menu values(#{menuName},#{menuType},#{startDate},#{endDate}, #{price}, #{menuImage, jdbcType=VARCHAR})
+	</insert>
+	<insert id="addNutrient" parameterType="kr.or.kosta.dto.Menu">
+		insert into nutrient values(#{menuName}, #{weight}, #{calorie}, #{protein}, #{natrium})
+	</insert>
+	
+	<!-- 하위 관리자 메뉴 등록 관련 -->
+	<delete id="deleteResMenu">
+		delete from resmenu where branchcode = #{branchCode}
+	</delete>
+	
+	<insert id="addMenuListRowAdmin" parameterType="java.util.HashMap">
+		<if test="menuList.size != 0">
+			insert into resmenu(
+				menuname, 
+				branchcode
+			)values
+			<foreach collection="menuList" item="item" separator=",">
+			(
+				#{item.menuName},
+				#{item.branchCode}
+			)
+			</foreach>
+		</if>
+	</insert>
+	
+	<!-- 하위 관리자 메뉴 리스트 -->
+	<select id="getMenuRowAdmin" parameterType="String">
+		select menuName, branchcode
+		from ResMenu
+		where #{branchCode}
 	</select>
 </mapper>

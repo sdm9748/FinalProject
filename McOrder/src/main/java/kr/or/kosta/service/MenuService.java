@@ -1,6 +1,12 @@
 package kr.or.kosta.service;
-
+/*
+* @FileName : MenuService
+* @Project : McOrder
+* @Date : 2017.12.27 
+* @Author : 최한나, 염주호
+*/
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +33,14 @@ public class MenuService {
 		return null;
 	}
 	
-	// 진짜 메뉴 상세보기
+	/*
+	 * @method Name : getMenuDetail
+	 * @date : 2017.11.29
+	 * @author :2017.11.29. : 최한나
+	 * @description :  메뉴 상세보기
+	 * @param spec : String menuName
+	 * @return : Menu
+	 */
 	public Menu getMenuDetail(String menuName) {
 		
 		MenuDao menudao = session.getMapper(MenuDao.class);
@@ -35,17 +48,67 @@ public class MenuService {
 		
 		return menu;
 	}
-	
-	// 최상위 관리자가 메뉴등록
-	public int addMenu(Menu menu) {
-		return 0;
+	/*
+	 * @method Name : getMenuDetail
+	 * @date : 2017.11.30
+	 * @author :2017.11.30. : 염주호
+	 * @description :  메뉴 등록
+	 * @param spec : Menu menu
+	 * @return : void
+	 */
+	public void addMenu(Menu menu) {
+		
+		MenuDao menudao = session.getMapper(MenuDao.class);
+		System.out.println("서비스 여기까진 왔지?");
+		System.out.println(menu.toString());
+		menudao.addMenu(menu);
+		menudao.addNutrient(menu);
+		
 	}
-	
-	// 최상위 관리자가 보는 메뉴리스트 한나 
+	/*
+	 * @method Name : getMenuList
+	 * @date : 2017.11.29
+	 * @author :2017.11.29. : 최한나
+	 * @description :  최상위 관리자가 보는 메뉴리스트
+	 * @param spec : 
+	 * @return : List<Menu>
+	 */
 	public List<Menu> getMenuList(){
 		
 		MenuDao menudao = session.getMapper(MenuDao.class);
 		List<Menu> list = menudao.getMenuList();
+		return list;
+	}
+	/*
+	 * @method Name : addMenuListRowAdmin
+	 * @date : 2017.12.03
+	 * @author :2017.12.03. : 염주호
+	 * @description :  하위관리자 최상위 관리자의 메뉴 중 원하는 메뉴등록
+					      하위 관리자가 최상위관리자가 등록한 메뉴 리스트들 중 판매원하는 메뉴들 체크해서 등록
+	 * @param spec : int branchCode, Map<String, Object> paramMap
+	 * @return : void
+	 */
+	public void addMenuListRowAdmin(int branchCode, Map<String, Object> paramMap) {
+		
+		MenuDao menudao = session.getMapper(MenuDao.class);
+		menudao.deleteResMenu(branchCode);			//먼저 테이블 꺠끗하게 delete
+		System.out.println("service단 : " + paramMap.toString());
+		session.insert("addMenuListRowAdmin",paramMap);
+		//menudao.addMenuListRowAdmin(paramMap, branchCode);	//list를 담은 menuMap을 보냄		
+	}
+	
+	/*
+	 * @method Name : getMenuRowAdmin
+	 * @date : 2017.12.03
+	 * @author :2017.12.03. : 염주호
+	 * @description :  하위관리자 메뉴리스트 뿌리기
+	 * @param spec : int branchCode
+	 * @return : List<String>
+	 */
+	public List<String> getMenuRowAdmin(int branchCode) {
+		MenuDao menudao = session.getMapper(MenuDao.class);
+		List<String> list = menudao.getMenuRowAdmin(branchCode);
+		
 		return list;
 	}
 	
