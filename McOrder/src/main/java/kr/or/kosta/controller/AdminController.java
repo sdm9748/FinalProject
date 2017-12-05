@@ -1,3 +1,4 @@
+
 package kr.or.kosta.controller;
 /*
 * @FileName : AdminController
@@ -275,8 +276,10 @@ public class AdminController {
 				
 				String[] arr= request.getParameterValues("checkbox");	//체크박스 이름들 가져옴
 				int branchCode = Integer.parseInt(principal.getName());	//지점 코드 가져옴
+				System.out.println("컨트롤러 브랜치코드 : " + branchCode);
 				
 				Map<String, Object> paramMap = new HashMap<>();
+				paramMap.put("branchCode", branchCode);		//아이디값은 일정
 				
 				Map<String, Object> menuMap;
 				
@@ -286,7 +289,7 @@ public class AdminController {
 					menuMap = new HashMap<>();
 					
 					menuMap.put("menuName", arr[i]);
-					menuMap.put("branchCode", branchCode);
+					//menuMap.put("branchCode", branchCode);
 					
 					menuList.add(menuMap);
 				}  

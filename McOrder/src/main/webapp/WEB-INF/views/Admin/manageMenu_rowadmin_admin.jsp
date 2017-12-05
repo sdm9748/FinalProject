@@ -4,24 +4,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/manageMenu.css">
 
-<!-- 체크박스 처리 -->
-<!-- <script>
-	function checkboxArr(){
-		var checkArr = [];   	//배열 초기화
-		$("input[name='checkbox']:checked").each(function(i))){
-			checkArr.push($(this).val());			//체크된 것만 뽑아서 Arr에 push
-		}
-		
-		$.ajax({
-			url: 'manageMenu_rowadmin.htm',
-			type : 'post',
-			dataType : 'text',
-			data : {valueArr: checkArr}
-		});
-	}
-</script> -->
-
-
 <div id="content">
 	<div class="container">
 		<div class="row">

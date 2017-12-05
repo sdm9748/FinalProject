@@ -27,9 +27,9 @@
 		</thead>
 		<tbody id="menuListBody">
 		
-		<c:forEach items="${list}" var="menu">
+		<c:forEach items="${menuList}" var="menu">
 			<tr style="text-align: center;">
-				<td><a href="detailMenu.htm?menuName=${menu.menuName}">${menu.menuName }</a></td>
+				<td><a href="detailMenu.htm?menuName=${menu.menuName}">${menu.menuName}</a></td>
 				<td style="text-align: center;">${menu.branchCode}</td>
 			</tr>
 		</c:forEach>

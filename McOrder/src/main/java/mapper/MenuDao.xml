@@ -29,24 +29,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<insert id="addMenuListRowAdmin" parameterType="java.util.HashMap">
-		<if test="menuList.size != 0">
-			insert into resmenu(
-				menuname, 
-				branchcode
-			)values
-			<foreach collection="menuList" item="item" separator=",">
-			(
-				#{item.menuName},
-				#{item.branchCode}
-			)
-			</foreach>
-		</if>
+	INSERT ALL
+	<foreach collection="menuList" item="item">
+		INTO resmenu(menuname, branchcode) VALUES
+		(#{item.menuName}, #{branchCode})
+	</foreach>
+	SELECT * FROM DUAL
 	</insert>
 	
-	<!-- 하위 관리자 메뉴 리스트 -->
-	<select id="getMenuRowAdmin" parameterType="String">
+		<!-- 하위 관리자 메뉴 리스트 -->
+	<select id="getMenuRowAdmin" resultType="kr.or.kosta.dto.Menu">
 		select menuName, branchcode
 		from ResMenu
-		where #{branchCode}
+		where branchCode=#{branchCode}
 	</select>
+
 </mapper>
