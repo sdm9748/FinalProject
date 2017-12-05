@@ -343,7 +343,6 @@ public class AdminController {
 	 * @param spec : String menuName, Model model
 	 * @return : String 
 	 */
-	// 하위관리자, 상위관리자가 메뉴 상세보기 > 페이지는 같으니까 같이 써도 되지않나요? // 한나
 	@RequestMapping("detailMenu.htm") 
 	public String showMenuDetail(String menuName, Model model) {
 		Menu menu = menuService.getMenuDetail(menuName);
