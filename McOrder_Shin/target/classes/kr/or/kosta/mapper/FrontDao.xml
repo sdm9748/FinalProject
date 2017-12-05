@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.kosta.dao.FrontDao">
+
+	<select id="getEvent" resultType="kr.or.kosta.dto.Event">
+		select eventNum, eventTitle, eventImage1, eventImage2, eventContent from event
+	</select>
+</mapper>
