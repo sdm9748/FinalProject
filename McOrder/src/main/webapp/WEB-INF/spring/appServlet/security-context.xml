@@ -26,7 +26,7 @@
 	hasRole() = hasAuthority()
 	access="permitAll" 은 누구나 접근 가능하다는 것을 의미.
  -->
- 	<security:http use-expressions="true">
+<!--  	<security:http use-expressions="true">
 	    <security:csrf disabled="true" />
 		<security:intercept-url pattern="/User/**" access="hasRole('ROLE_USER')" />
   		<security:intercept-url pattern="/Admin/**" access="hasRole('ROLE_ADMIN')" />
@@ -46,7 +46,32 @@
 				<security:user name="0001" password="0000" authorities="ROLE_ADMIN"/>
 			</security:user-service>
 		</security:authentication-provider>
-	</security:authentication-manager>
+	</security:authentication-manager> -->
 
+ 	<security:http use-expressions="true">
+	    <security:csrf disabled="true" />
+		<security:intercept-url pattern="/User/**" access="hasRole('ROLE_USER')" />
+  		<security:intercept-url pattern="/Admin/**" access="hasRole('ROLE_ADMIN','ROLE_TOPADMIN')" />
+  		<security:intercept-url pattern="/login.htm" access="!hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_TOPADMIN')" />
+  		<security:intercept-url pattern="/join.htm" access="!hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_TOPADMIN')" />
+  		<security:intercept-url pattern="/**" access="permitAll" />
+	    <security:form-login 
+	    	login-page="/login.htm"
+	    	authentication-failure-url="/login.htm?error"
+	    	authentication-success-handler-ref="memberService"
+	    />
+	    <security:logout logout-success-url="/index.htm" logout-url="/logout.htm" invalidate-session="true"/>       
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service 
+			data-source-ref="driverManagerDataSource"
+ 			users-by-username-query="SELECT id as username, password as password, 1 as enabled FROM member WHERE id=?"
+ 			authorities-by-username-query="SELECT id as username, role as authority FROM member WHERE id=?"/>
+			<security:password-encoder ref="bCryptPasswordEncoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	<bean id="memberService" class="kr.or.kosta.service.MemberService"></bean>
 
 </beans>

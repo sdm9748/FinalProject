@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <link href="${pageContext.request.contextPath}/resources/css/component.css" type="text/css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/resources/css/demo.css" type="text/css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/resources/css/normalize.css" type="text/css" rel="stylesheet" />
@@ -23,34 +25,99 @@
 				<nav class="gn-menu-wrapper">
 					<div class="gn-scroller">
 						<ul class="gn-menu">
-							<li class="gn-search-item">
-								<input placeholder="Search" type="search" class="gn-search">
-								<a class="gn-icon gn-icon-search"><span>Search</span></a>
-							</li>
 							<li>
-								<a href="${pageContext.request.contextPath}/index.htm" class="gn-icon gn-icon-download">메인화면</a>
-								<ul class="gn-submenu">
-									<li><a href="${pageContext.request.contextPath}/User/mainmenu.htm" class="gn-icon gn-icon-illustrator">매장QR코드 찍었을때</a></li>
-									<li><a href="${pageContext.request.contextPath}/User/selectMenu.htm" class="gn-icon gn-icon-photoshop">메뉴 선택시</a></li>
-									<li><a href="${pageContext.request.contextPath}/User/menuDetail.htm" class="gn-icon gn-icon-photoshop">메뉴 디테일</a></li>
-								</ul>
+								<div class="row menuRow">
+									<div class="col-xs-2" style="margin: auto; padding-left: 30px; padding-right: 0;">
+										<img src="${pageContext.request.contextPath}/resources/images/맥로고.png" style="width: 100%;">
+									</div>
+									<div class="col-xs-10" style="padding-top: auto; padding-bottom: auto;">
+										<a href="${pageContext.request.contextPath}/index.htm">메인화면</a>
+									</div>
+								</div>
 							</li>
-							<li><a href="${pageContext.request.contextPath}/User/shoppingCart.htm" class="gn-icon gn-icon-help">장바구니</a></li>
+							<se:authorize access="!hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+								<li>
+									<div class="row menuRow">
+										<div class="col-xs-2" style="margin: auto; padding-left: 30px; padding-right: 0;">
+											<img src="${pageContext.request.contextPath}/resources/images/회원가입.png" style="width: 100%;">
+										</div>
+										<div class="col-xs-10" style="padding-top: auto; padding-bottom: auto;">
+											<a href="${pageContext.request.contextPath}/join.htm">회원가입</a>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="row menuRow">
+										<div class="col-xs-2" style="margin: auto; padding-left: 30px; padding-right: 0;">
+											<img src="${pageContext.request.contextPath}/resources/images/login.png" style="width: 100%;">
+										</div>
+										<div class="col-xs-10" style="padding-top: auto; padding-bottom: auto;">
+											<a href="${pageContext.request.contextPath}/login.htm">로그인</a>
+										</div>
+									</div>
+								</li>
+							</se:authorize>
+							<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+								<li>
+									<div class="row menuRow">
+										<div class="col-xs-2" style="margin: auto; padding-left: 30px; padding-right: 0;">
+											<img src="${pageContext.request.contextPath}/resources/images/마이페이지.png" style="width: 100%;">
+										</div>
+										<div class="col-xs-10" style="padding-top: auto; padding-bottom: auto;">
+											마이페이지
+										</div>
+									</div>
+								</li>
+								<li style="padding-left: 15px;">
+									<div class="row menuRow">
+										<div class="col-xs-2" style="margin: auto; padding-left: 30px; padding-right: 0;">
+											<img src="${pageContext.request.contextPath}/resources/images/정보수정.png" style="width: 100%;">
+										</div>
+										<div class="col-xs-10" style="padding-top: auto; padding-bottom: auto;">
+											<a href="${pageContext.request.contextPath}/User/editMyInfo.htm">내 정보 수정하기</a>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="row menuRow">
+										<div class="col-xs-2" style="margin: auto; padding-left: 30px; padding-right: 0;">
+											<img src="${pageContext.request.contextPath}/resources/images/logout.png" style="width: 100%;">
+										</div>
+										<div class="col-xs-10" style="padding-top: auto; padding-bottom: auto;">
+											<a href="${pageContext.request.contextPath}/logout.htm">로그아웃</a>
+										</div>
+									</div>
+								</li>
+							</se:authorize>
 							<li>
-								<a class="gn-icon gn-icon-archive"></a>
-								<ul class="gn-submenu">
-									<li><a href="${pageContext.request.contextPath}/User/map.htm" class="gn-icon gn-icon-pictures">지도</a></li>
-									<li><a href="${pageContext.request.contextPath}/User/join.htm" class="gn-icon gn-icon-videos">회원가입</a></li>
-									<li><a href="${pageContext.request.contextPath}/login.htm" class="gn-icon gn-icon-videos">로그인</a></li>
-									<li><a href="${pageContext.request.contextPath}/logout.htm" class="gn-icon gn-icon-videos">로그아웃</a></li>
-								</ul>
+								<div class="row menuRow">
+									<div class="col-xs-2" style="margin: auto; padding-left: 30px; padding-right: 0;">
+										<img src="${pageContext.request.contextPath}/resources/images/장바구니.png" style="width: 100%;">
+									</div>
+									<div class="col-xs-10" style="padding-top: auto; padding-bottom: auto;">
+										<a href="${pageContext.request.contextPath}/User/shoppingCart.htm">장바구니</a>
+									</div>
+								</div>
 							</li>
+							<li class="menuR">
+								<div class="row">
+									<div class="col-xs-2" style="margin: auto; padding-left: 30px; padding-right: 0;">
+										<img src="${pageContext.request.contextPath}/resources/images/지도.png" style="width: 100%;">
+									</div>
+									<div class="col-xs-10" style="padding-top: auto; padding-bottom: auto;">
+										<a href="${pageContext.request.contextPath}/User/map.htm">지도</a>
+									</div>
+								</div>
+							</li>
+							<li><a href="${pageContext.request.contextPath}/User/mainmenu.htm" class="gn-icon gn-icon-illustrator">매장QR코드 찍었을때</a></li>
+							<li><a href="${pageContext.request.contextPath}/User/selectMenu.htm" class="gn-icon gn-icon-photoshop">메뉴 선택시</a></li>
+							<li><a href="${pageContext.request.contextPath}/User/menuDetail.htm" class="gn-icon gn-icon-photoshop">메뉴 디테일</a></li>
 						</ul>
 					</div><!-- /gn-scroller -->
 				</nav>
 			</li>
 			<center>
-				<img class="macimg" src="${pageContext.request.contextPath}/resources/images/맥도날드.png" style="margin-top: 5px; width:15%; ">
+				<img class="macimg" src="${pageContext.request.contextPath}/resources/images/맥도날드.png" style="margin-top: 8px; width:15%; ">
 			</center>
 		</ul>
 		

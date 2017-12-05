@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/slick/slick-theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
 <script src="${pageContext.request.contextPath}/resources/slick/slick.js" type="text/javascript" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/resources/js/modernizr.custom.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
@@ -9,15 +11,11 @@
 	<div class="container">
 		<center>
 			<div class="slider col-sm-10" style="width: 280px; margin-top: 80px;">
-	            <a class="no-uline" href="#">
-	          		<img class="pad img-rounded" src="${pageContext.request.contextPath}/resources/images/이벤트1.jpg" style=" height:250px">
-	            </a>
-	            <a class="no-uline" href="#">
-	          		<img class="pad img-rounded" src="${pageContext.request.contextPath}/resources/images/이벤트2.png" style=" height:250px">
-	            </a>
-	            <a class="no-uline" href="#">
-	          		<img class="pad img-rounded" src="${pageContext.request.contextPath}/resources/images/이벤트3.jpg" style=" height:250px">
-	            </a>
+	        	<c:forEach var="event" items="${eventList }">
+		            <a class="no-uline" href="#">
+		          		<img id="${event.eventNum }" class="event pad img-rounded" src="${event.eventImage1 }" style=" height:250px">
+		            </a>
+				</c:forEach>
 	        </div>
 		</center>
 		<hr style="border-top-width: 5px;">
@@ -40,3 +38,11 @@
 		</div>
 	</div>
 </div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <span class="close">×</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
+

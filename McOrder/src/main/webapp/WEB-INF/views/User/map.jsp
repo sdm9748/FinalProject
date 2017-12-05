@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7a58ecdfababe232ec16390a59fad150"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/map.css">
 <script src="${pageContext.request.contextPath}/resources/js/map.js" type="text/javascript" charset="utf-8"></script>
@@ -7,17 +8,20 @@
 	<div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top: 45px;">
     	<!-- Wrapper for slides -->
     	<div class="carousel-inner">
-      		<div class="item active">
-        		<img src="${pageContext.request.contextPath}/resources/images/이벤트1_1.jpg" alt="Los Angeles" style="width:100%;">
-      		</div>
-
-      		<div class="item">
-        		<img src="${pageContext.request.contextPath}/resources/images/이벤트2_1.jpg" alt="Chicago" style="width:100%;">
-     		</div>
-    
-      		<div class="item">
-        		<img src="${pageContext.request.contextPath}/resources/images/이벤트3_1.jpg" alt="New york" style="width:100%;">
-      		</div>
+      		<c:forEach var="event" items="${eventList }" varStatus="index">
+      			<c:if test="${index.index == 0 }">
+	    			<div class="item active">
+		        		<img class="event" src="${event.eventImage2 }"  style="width:100%;">
+		        		<input type="hidden" id="${event.eventImage2 }" value="${event.eventImage1 }">
+		      		</div>
+      			</c:if>
+      			<c:if test="${index.index != 0 }">
+	    			<div class="item">
+		        		<img class="event" src="${event.eventImage2 }" style="width:100%;">
+		        		<input type="hidden" id="${event.eventImage2 }" value="${event.eventImage1 }">
+		      		</div>
+      			</c:if>
+			</c:forEach>
     	</div>
 
     	<!-- Left and right controls -->
@@ -86,4 +90,11 @@
 			</tr>
 		</tbody>
 	</table>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <span class="close">×</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
 </div>

@@ -1,23 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mainMenu.css">
+<script src="${pageContext.request.contextPath}/resources/js/mainMenu.js" type="text/javascript" charset="utf-8"></script>
 <div id="content">
 	<div class="container" style="padding: 0;">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 360px; margin-top: 45px;">
 			<!-- Wrapper for slides -->
-			<div class="carousel-inner">
-				<div class="item active">
-					<img src="${pageContext.request.contextPath}/resources/images/이벤트1_1.jpg" alt="Los Angeles" style="width: 100%;">
-				</div>
-
-				<div class="item">
-					<img src="${pageContext.request.contextPath}/resources/images/이벤트2_1.jpg" alt="Chicago" style="width: 100%;">
-				</div>
-
-				<div class="item">
-					<img src="${pageContext.request.contextPath}/resources/images/이벤트3_1.jpg" alt="New york" style="width: 100%;">
-				</div>
-			</div>
+	    	<div class="carousel-inner">
+	      		<c:forEach var="event" items="${eventList }" varStatus="index">
+	      			<c:if test="${index.index == 0 }">
+		    			<div class="item active">
+			        		<img class="event" src="${event.eventImage2 }"  style="width:100%;">
+			        		<input type="hidden" id="${event.eventImage2 }" value="${event.eventImage1 }">
+			      		</div>
+	      			</c:if>
+	      			<c:if test="${index.index != 0 }">
+		    			<div class="item">
+			        		<img class="event" src="${event.eventImage2 }" style="width:100%;">
+			        		<input type="hidden" id="${event.eventImage2 }" value="${event.eventImage1 }">
+			      		</div>
+	      			</c:if>
+				</c:forEach>
+	    	</div>
 
 			<!-- Left and right controls -->
 			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -82,4 +87,11 @@
 		<div class="col-xs-4" style="text-align: center; color: #fff; font-family: 'Hanna', serif; font-size: 20px;">치즈버거</div>
 		<div class="col-xs-4" style="text-align: center; color: #fff; font-family: 'Hanna', serif; font-size: 20px;">새우버거</div>
 	</div>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <span class="close">×</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
 </div>

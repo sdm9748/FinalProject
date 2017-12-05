@@ -4,16 +4,25 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
 import kr.or.kosta.dto.BurgerSet;
+import kr.or.kosta.dto.Event;
+import kr.or.kosta.dto.Member;
 import kr.or.kosta.dto.Menu;
 import kr.or.kosta.service.CartService;
+import kr.or.kosta.service.FrontService;
+import kr.or.kosta.service.MemberService;
 import kr.or.kosta.service.MenuService;
+import kr.or.kosta.service.MyPage;
 import kr.or.kosta.service.OrderService;
 import kr.or.kosta.service.ViewService;
 
@@ -74,9 +83,14 @@ public class UserController {
 	@Autowired
 	private OrderService orderService;
 	
+	@Autowired
+	private FrontService frontService;
+	
 	// 웹상에서 매장 선택후 보이는 메뉴리스트(QR코드 사용 x) 
 	@RequestMapping("mainmenu.htm")
 	public String showMenuList(/*int brachCode,*/ Model model) {
+		List<Event> eventList1 = frontService.getEventList();
+		model.addAttribute("eventList", eventList1);
 		return "mainMenu.user";
 	}
 	
@@ -128,7 +142,9 @@ public class UserController {
 	
 	// 지도 메뉴보여주는 창 (스크립트인건가? 어케할지 생각좀)
 	@RequestMapping("map.htm")
-	public String showMap() {
+	public String showMap(Model model) {
+		List<Event> eventList = frontService.getEventList();
+		model.addAttribute("eventList", eventList);
 		return "map.user";
 	}
 	
@@ -142,4 +158,47 @@ public class UserController {
 		return jsonview;
 	}
 	
+	/*========================마이페이지 관련 Controller============================*/
+	
+	@Autowired
+	private MyPage myPageService;
+	
+	// 수정창 띄우기
+	@RequestMapping("editMyInfo.htm")
+	public String editMyInfo() {
+		return "editMyInfo.user";
+	}
+	
+	// 수정 적용
+	@RequestMapping("userEdit.htm")
+	public String userEdit(Member member) {
+		System.out.println("asdf");
+		myPageService.userEdit(member);
+		return "redirect:/index.htm";
+	}
+
+	// 비밀번호 체크 후 맞으면 해당 멤버 정보 반환
+	@RequestMapping(value="passwordCheck.htm", method=RequestMethod.POST)
+	@ResponseBody
+	public View passwordCheck(String password, Principal principal, Model model) {
+		
+		String username = principal.getName();
+		Member member = myPageService.passwordCheck(username, password);
+		model.addAttribute("member", member);
+		
+		return jsonview;
+	}
+	
+	/*========================로그인 관련 Controller============================*/
+	
+	@Autowired
+	private MemberService memberservice;
+	
+	// 로그인 했을 때 마지막 로그인 시간 설정
+	@RequestMapping("loginIndex.htm")
+	public String loginIndex(Principal principal) {
+		System.out.println("2");
+		memberservice.lastLoginTime(principal.getName());
+		return "redirect:/index.htm";
+	}
 }

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 
 import kr.or.kosta.dto.Member;
@@ -39,6 +40,33 @@ public class MemberController {
 		return "join.member";
 	}
 	
+	// 회원가입 페이지 주소창
+	@RequestMapping(value="/addr.htm", method=RequestMethod.GET)
+	public String addr() {
+		return "addr.member";
+	}
+	
+	// 회원가입 페이지 주소창
+	@RequestMapping(value="/addr.htm", method=RequestMethod.POST)
+	public void returnAddr() {
+	}
+	
+	// 회원가입 페이지 주소창
+	@RequestMapping(value="/findAddr.htm", method=RequestMethod.GET)
+	public String findAddr() {
+		return "findAddr.member";
+	}
+	
+	// 회원가입 페이지 아이디 중복여부 체크
+	@RequestMapping(value="/dupl.htm", method=RequestMethod.POST)
+	@ResponseBody
+	public View dupl(String id, Model model) {
+		System.out.println("넘어온 아이디: " + id);
+		int row = memberService.dupl(id);
+		model.addAttribute("row", row);
+		return jsonview;
+	}
+	
 	// 회원가입 post 방식으로 폼에서 넘어오면!!! 들어온 패스워드 암호화 set해서 넘겨!!!!!
 	@RequestMapping(value="/join.htm", method=RequestMethod.POST)
 	public String joinMember(Member member) throws Exception {
@@ -47,36 +75,52 @@ public class MemberController {
 		return "login.member";
 	}
 	
-	// 로그인 성공시 로그인 한 사람이 관리자인지, 사용자인지 확인 후 redirect
-	@RequestMapping(value="/loginSuccess.htm", method=RequestMethod.GET)
-	public String loginSuccess() {
-		
-		return "login.member";
-	}
-	
-	// 로그인 get 방식으로 뷰단만 보여주기 시큐리티xml에 뷰단으로 사용할거임
-	public String showLoginForm() {
-		return null;
-	}
-	
-	// 회원 정보 수정 페이지로 갈때 비밀번호 한번더 체크해보려고 일단 체크페이지만 보여주자(get방식)
-	public String showPwdCheck() {
-		return null;
-	}
-	
-	// 비밀번호 확인 클릭하면 비밀번호 맞는지 체크하고 맞으면 그 해당 회원 정보 리턴받아서 가지고
-	// 회원정보수정페이지로 넘어가서 뿌려줄거임
-	public String showEditMember(String beforePwd, Principal principal, Model model) {
-		return null;
-	}
-	
-	// 회원정보수정페이지에서 수정완료 클릭하면 실행
-	public String editCompleteMember(Member member) {
-		return null;
+	// 아이디 찾기 화면
+	@RequestMapping("findID.htm")
+	public String findID() {
+		return "findID.member";
 	}
 	
 	// 이름이랑 폰넘버 받아서 아이디를 찾아 그리고 비동기로 데이터넘겨서 알려줄거임
-	public View findMemberId(String name, String phoneNum, ModelMap map) {
+	@RequestMapping(value="findID.htm", method=RequestMethod.POST)
+	@ResponseBody
+	public String findMemberId(String name, String phoneNum) {
+		System.out.println("이름: " + name + "/ 폰넘: " + phoneNum);
+		String id = memberService.findMemberId(name, phoneNum);
+		return id;
+	}
+	
+	// 비밀번호 찾기 화면
+	@RequestMapping(value="findPassword.htm", method=RequestMethod.GET)
+	public String findPassword() {
+		return "findPassword.member";
+	}
+	
+	// 이름이랑 폰넘버 받아서 아이디를 찾아 그리고 비동기로 데이터넘겨서 알려줄거임
+	@ResponseBody
+	@RequestMapping(value="findPassword.htm", method=RequestMethod.POST)
+	public View findPassword(String id, String phoneNum, ModelMap model) {
+		System.out.println("아이디: " + id + "/ 폰넘: " + phoneNum);
+		Member member = memberService.findPassword(id, phoneNum);
+		model.addAttribute("member", member);
+		return jsonview;
+	}
+	
+	// 이름이랑 폰넘버 받아서 아이디를 찾아 그리고 비동기로 데이터넘겨서 알려줄거임
+	@ResponseBody
+	@RequestMapping(value="editPassword.htm", method=RequestMethod.POST)
+	public View editPassword(String password1, String password2, ModelMap model, String userid) {
+		System.out.println("userid: " + userid);
+		System.out.println("password: " + password1);
+		if(password1.equals(password2)) {
+			// 비밀번호 = 비밀번호 확인
+			System.out.println("같아!");
+			memberService.editPassword(userid, this.bCryptPasswordEncoder.encode(password1));
+			model.addAttribute("check","true");
+		} else {
+			System.out.println("달라!");
+			model.addAttribute("check","fail");
+		}
 		return jsonview;
 	}
 	

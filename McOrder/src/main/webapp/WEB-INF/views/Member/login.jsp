@@ -36,12 +36,21 @@
 			<div class="col-xs-12" style="margin-left: auto; margin-right: auto; z-index:2;">
 				<div style="z-index: 1;">
 					<center>
-						<input type="text" id="password" name="password" style="width: 250px; padding-left: 16px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
+						<input type="password" id="password" name="password" style="width: 250px; padding-left: 16px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
 					</center>
 				</div>
 			</div>
 			
-			<div class="col-xs-12" style="margin-top: 10px;">
+			<div class="col-xs-12" style="margin-top: 10px; text-align: center;">
+				<div id="check" style="font-size: 20px; color: #fff; font-family: 'Hanna', serif;">
+					<c:if test="${param.error != null}">
+						<div>
+							<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+				     			<c:out value="아이디와 비밀번호를 확인해주세요" />
+				   	 		</c:if>
+						</div>
+					</c:if>
+				</div>
 				<hr style="border-top-width: 5px;">
 				<center>
 					<input type="submit" class="btn btn-warning" value="로그인" style="margin-top: 15px; margin-bottom: 30px; width: 200px; font-size: 20px; color: #fff; font-family: 'Hanna', serif;">
@@ -78,15 +87,6 @@
 				</span>
 			</a>
 		</div>
-		
-		<c:if test="${param.error != null}">
-			<div>
-				로그인 실패<br>
-				 <c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
-      				이유 : <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
-    	 		</c:if>
-			</div>
-		</c:if>
 		
 	</div>	
 </div>
