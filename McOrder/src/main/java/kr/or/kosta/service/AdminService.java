@@ -1,5 +1,10 @@
 package kr.or.kosta.service;
-
+/*
+* @FileName : AdminService
+* @Project : McOrder
+* @Date : 2017.12.06 
+* @Author : 최한나
+*/ 
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,6 +24,14 @@ public class AdminService {
 	@Autowired
 	private SqlSession session;
 	
+	/*
+	* @method Name : getAdminList
+	* @date  : 2017.12.06
+	* @author :2017.12.06. : 최한나
+	* @description : 하위관리자 리스트 보기
+	* @param spec : 
+	* @return : List<Admin>
+	*/ 
 	public List<Admin> getAdminList(){
 		
 		AdminDao adminDao = session.getMapper(AdminDao.class);
@@ -29,6 +42,14 @@ public class AdminService {
 		
 	}
 	
+	/*
+	* @method Name : deleteAdmin
+	* @date  : 2017.12.06
+	* @author :2017.12.06. : 최한나
+	* @description : 하위관리자 삭제하고 다시 리스트 가져가기
+	* @param spec : int branchCode
+	* @return : List<Admin>
+	*/ 
 	@Transactional
 	public List<Admin> deleteAdmin(int branchCode) {
 		
@@ -50,6 +71,14 @@ public class AdminService {
 		return list;
 	}
 	
+	/*
+	* @method Name : addAdmin
+	* @date  : 2017.12.06
+	* @author :2017.12.06. : 최한나
+	* @description : 하위관리자 멤버테이블에 등록시키고 관리자 테이블에도 등록시키기
+	* @param spec : Member member
+	* @return : void
+	*/ 
 	@Transactional
 	public void addAdmin(Member member) {
 		

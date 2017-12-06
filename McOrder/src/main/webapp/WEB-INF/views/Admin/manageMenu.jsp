@@ -2,8 +2,34 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
+<script src="http://code.jquery.com/jquery-3.2.0.js"></script>
+   <script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/dataTables.css">
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/manageMenu.css">
+<script>
+$(function(){
+    $('#dataList').DataTable({
+             "paging": true ,
+             "lengthChange": true,
+             "searching": true,
+             "ordering": true,
+             "info": false,
+             "autoWidth": false,
+             "oLanguage": {
+                 "sSearch": "<span>검색</span> _INPUT_", //search
+                 "sLengthMenu" : " _MENU_<span> 개씩 보기</span>",
+               },
+               "oPaginate": {
+                   "sFirst":    "처음",
+                   "sLast":     "마지막",
+                   "sNext":     "다음",
+                   "sPrevious": "이전"
+               }
+
+           });
+  });
+</script>
 <div id="content">
 	<div class="container">
 		<div class="row">
@@ -23,7 +49,7 @@
 		<span style="color: #fff; font-size: 20px; font-family: 'Hanna', serif; margin-top: auto; margin-bottom: auto;">메뉴등록</span>
 	</a>
 	</se:authorize>
-		<table>
+		<table id="dataList">
 		<thead>
 			<tr>
 				<th style="text-align: center;">이름</th>
@@ -60,7 +86,7 @@
 					${menu.price }
 				</td>
 				<td style="text-align: center;">
-				<img src="<%=request.getContextPath()%>/${menu.menuImage }" style="width: 100px; height: 100px">
+				<img src="<%=request.getContextPath()%>/${menu.menuImage }" style="width: 100px; height: 100px" >
 				</td>
 			</tr>
 		</c:forEach>

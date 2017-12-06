@@ -9,11 +9,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+<script src="http://code.jquery.com/jquery-3.2.0.js"></script>
+   <script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/dataTables.css">
 <!--
 비동기로 매출 단위 바꿀거다 (한나)
 -->
 <script type="text/javascript">
 	$(function () {
+		
+		    $('#dataList').DataTable({
+		             "paging": true ,
+		             "lengthChange": true,
+		             "searching": true,
+		             "ordering": true,
+		             "info": false,
+		             "autoWidth": false,
+		             "oLanguage": {
+		                 "sSearch": "<span>검색</span> _INPUT_", //search
+		                 "sLengthMenu" : " _MENU_<span> 개씩 보기</span>",
+		               },
+		               "oPaginate": {
+		                   "sFirst":    "처음",
+		                   "sLast":     "마지막",
+		                   "sNext":     "다음",
+		                   "sPrevious": "이전"
+		               }
+
+		           });
+
 		 $('#selectDay').change(function() {
 			var data = {selectDay : $('#selectDay').val()};
 			console.log(data);
@@ -189,7 +213,7 @@
 		<option value="3">월</option>
 	</select>             
 	<br>
-	<table>
+	<table id="dataList">
       <thead>
          <tr>
        	  	<th class="salesDate" style="text-align: center;">날짜</th>
