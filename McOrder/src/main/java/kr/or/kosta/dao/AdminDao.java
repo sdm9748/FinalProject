@@ -11,7 +11,7 @@ public interface AdminDao {
 	
 	public void addAdmin(Admin admin);
 	
-	public void deleteAdmin(String branchCode);
+	public void deleteAdmin(int branchCode);
 	
 	public void addAdminToMember(Member member);
 }

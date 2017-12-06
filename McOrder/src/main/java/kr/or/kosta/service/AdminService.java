@@ -22,7 +22,7 @@ public class AdminService {
 	public List<Admin> getAdminList(){
 		
 		AdminDao adminDao = session.getMapper(AdminDao.class);
-		
+		System.out.println("서비스");
 		List<Admin>	list = adminDao.getAdminList();
 		System.out.println("관리자 서비스에서 리스트 : " + list.toString());
 		return list;
@@ -30,7 +30,7 @@ public class AdminService {
 	}
 	
 	@Transactional
-	public List<Admin> deleteAdmin(String branchCode) {
+	public List<Admin> deleteAdmin(int branchCode) {
 		
 		AdminDao adminDao = session.getMapper(AdminDao.class);
 		MemberDao memberDao = session.getMapper(MemberDao.class);
@@ -56,11 +56,13 @@ public class AdminService {
 		AdminDao adminDao = session.getMapper(AdminDao.class);
 		
 		Admin admin = new Admin();
-		
-		admin.setBranchCode(member.getId());
-		admin.setRole(member.getRole());
+		System.out.println("관리자등록서비스1 : " +member.getId());
+		System.out.println("관리자등록서비스2 :" + member.getName());
+		admin.setBranchCode(Integer.parseInt(member.getId()));
+		admin.setRole("ROLE_ADMIN");
 		admin.setName(member.getName());
 		
+		System.out.println("관리자등록서비스 member branchCode : " + admin.getBranchCode());
 		try {
 
 			// 회원테이블에 추가하고 가공할떄 set으로 Admin에 값 넣어주기

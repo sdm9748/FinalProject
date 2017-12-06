@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="addAdmin">
-		select into admin(brachCode, name, role)
+		insert into admin(branchCode, name, role)
 		values(#{branchCode}, #{name}, #{role})
 	</insert>
 

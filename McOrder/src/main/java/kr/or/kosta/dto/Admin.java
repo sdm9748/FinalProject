@@ -7,16 +7,15 @@ package kr.or.kosta.dto;
 */ 
 public class Admin {
 
-//	private int branchCode;
-	private String branchCode;
+	private int branchCode;
 	private String role;
 	private String name;
 	
 	
-	public String getBranchCode() {
+	public int getBranchCode() {
 		return branchCode;
 	}
-	public void setBranchCode(String branchCode) {
+	public void setBranchCode(int branchCode) {
 		this.branchCode = branchCode;
 	}
 	public String getRole() {

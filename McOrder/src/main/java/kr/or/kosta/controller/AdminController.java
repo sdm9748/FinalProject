@@ -61,6 +61,7 @@ public class AdminController {
 	@Autowired
 	private SalesService salesService;
 
+	@Autowired
 	private AdminService adminService;
 	
 	@Autowired
@@ -575,7 +576,8 @@ public class AdminController {
 		public String viewAdminList(Model model) {
 			System.out.println("관리자 관리 왔나요");
 			List<Admin> list = adminService.getAdminList();
-			System.out.println("관리자 리스트  : " + list.toString());
+			System.out.println("사이즈: " + list.size());
+			//System.out.println("관리자 리스트  : " + list.toString());
 			model.addAttribute("adminList", list);
 			return "manageAdmin.admin";
 		}
@@ -591,7 +593,7 @@ public class AdminController {
 		@RequestMapping("deleteAdmin.htm")
 		public View deleteAdmin(@RequestBody Admin admin, Model model) {
 			
-			String branchCode = admin.getBranchCode();
+			int branchCode = admin.getBranchCode();
 			
 			List<Admin> list = adminService.deleteAdmin(branchCode);
 			
@@ -622,7 +624,7 @@ public class AdminController {
 		 */
 		@RequestMapping(value="addAdmin.htm", method=RequestMethod.POST)
 		public String addAdmin(Member member) {
-			
+			System.out.println("등록 컨트롤러 member name : "  + member.getName());
 			adminService.addAdmin(member);
 			
 			return "redirect:manageAdmin.htm";
