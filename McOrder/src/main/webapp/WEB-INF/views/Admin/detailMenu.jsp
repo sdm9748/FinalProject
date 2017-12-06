@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/detailMenu.css">
 <script src="${pageContext.request.contextPath}/resources/js/detailMenu.js" type="text/javascript" charset="utf-8"></script>
@@ -80,6 +82,7 @@
 			<input class="enddate" type="date" style="width: 20%; height: 30px;" disabled value="${menu.endDate}" readonly="readonly">
 		</div>
 		
+		<se:authorize access="hasRole('ROLE_TOPADMIN')">	
 		<div class="row">
 			<div class="col-sm-12" style="margin-left: auto; margin-right: auto;">
 				<button class="btn btn-warning" style="width: 200px; margin-top: 30px;">
@@ -90,6 +93,7 @@
 				</button>
 			</div>
 		</div>
+		</se:authorize>
 		</div>
 	</div>
 </div>

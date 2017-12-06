@@ -29,10 +29,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.View;
 
+import kr.or.kosta.dto.Admin;
 import kr.or.kosta.dto.Event;
+import kr.or.kosta.dto.Member;
 import kr.or.kosta.dto.Menu;
 import kr.or.kosta.dto.Order;
 import kr.or.kosta.dto.Sales;
+import kr.or.kosta.service.AdminService;
 import kr.or.kosta.service.CartService;
 import kr.or.kosta.service.EventService;
 import kr.or.kosta.service.MenuService;
@@ -58,6 +61,8 @@ public class AdminController {
 	@Autowired
 	private SalesService salesService;
 
+	private AdminService adminService;
+	
 	@Autowired
 	private View jsonview;
 	
@@ -343,7 +348,6 @@ public class AdminController {
 	 * @param spec : String menuName, Model model
 	 * @return : String 
 	 */
-	// 하위관리자, 상위관리자가 메뉴 상세보기 > 페이지는 같으니까 같이 써도 되지않나요? // 한나
 	@RequestMapping("detailMenu.htm") 
 	public String showMenuDetail(String menuName, Model model) {
 		Menu menu = menuService.getMenuDetail(menuName);
@@ -557,4 +561,73 @@ public class AdminController {
 			
 			return jsonview;
 		}
+		/////////////////// 관리자 관리 ///////////////////////
+		
+		/*
+		 * @method Name : viewAdminList
+		 * @date  : 2017.12.06
+		 * @author :2017.12.06. : 최한나
+		 * @description : 하위 관리자 리스트 보여주기
+		 * @param spec : Model model
+		 * @return : String 
+		 */
+		@RequestMapping("manageAdmin.htm")
+		public String viewAdminList(Model model) {
+			System.out.println("관리자 관리 왔나요");
+			List<Admin> list = adminService.getAdminList();
+			System.out.println("관리자 리스트  : " + list.toString());
+			model.addAttribute("adminList", list);
+			return "manageAdmin.admin";
+		}
+		
+		/*
+		 * @method Name : deleteAdmin
+		 * @date  : 2017.12.06
+		 * @author :2017.12.06. : 최한나
+		 * @description : 하위 관리자 삭제
+		 * @param spec : @RequestBody Admin admin, Model model
+		 * @return : View 
+		 */
+		@RequestMapping("deleteAdmin.htm")
+		public View deleteAdmin(@RequestBody Admin admin, Model model) {
+			
+			String branchCode = admin.getBranchCode();
+			
+			List<Admin> list = adminService.deleteAdmin(branchCode);
+			
+			model.addAttribute("adminList", list);
+			return jsonview;
+		}
+		
+		/*
+		 * @method Name : addAdmin
+		 * @date  : 2017.12.06
+		 * @author :2017.12.06. : 최한나
+		 * @description : 하위 관리자  등록 페이지 가기
+		 * @param spec : 
+		 * @return : String 
+		 */
+		@RequestMapping(value="addAdmin.htm", method=RequestMethod.GET)
+		public String addAdmin() {
+			return "addAdminForm.admin";
+		}
+		
+		/*
+		 * @method Name : addAdmin
+		 * @date  : 2017.12.06
+		 * @author :2017.12.06. : 최한나
+		 * @description : 하위 관리자 등록처리 
+		 * @param spec : Member member
+		 * @return : String 
+		 */
+		@RequestMapping(value="addAdmin.htm", method=RequestMethod.POST)
+		public String addAdmin(Member member) {
+			
+			adminService.addAdmin(member);
+			
+			return "redirect:manageAdmin.htm";
+		}
+		
+		
+		
 }

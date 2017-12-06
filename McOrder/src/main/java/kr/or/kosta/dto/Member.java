@@ -13,6 +13,17 @@ public class Member {
 	private String grade;
 	private Date lastLogin;
 	private String birth;
+	private String role;
+	
+	
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public String getBirth() {
 		return birth;
