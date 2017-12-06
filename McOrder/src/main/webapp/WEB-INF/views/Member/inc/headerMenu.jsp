@@ -57,7 +57,7 @@
 									</div>
 								</li>
 							</se:authorize>
-							<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+							<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_TOPADMIN')">
 								<li>
 									<div class="row menuRow">
 										<div class="col-xs-2" style="margin: auto; padding-left: 30px; padding-right: 0;">

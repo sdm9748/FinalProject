@@ -19,6 +19,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -47,8 +48,8 @@ import kr.or.kosta.service.SalesService;
 public class AdminController {
 
 	@Autowired
-	private CartService cartService;
-
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@Autowired
 	private EventService eventService;
 
@@ -625,6 +626,7 @@ public class AdminController {
 		@RequestMapping(value="addAdmin.htm", method=RequestMethod.POST)
 		public String addAdmin(Member member) {
 			System.out.println("등록 컨트롤러 member name : "  + member.getName());
+			member.setPassword(this.bCryptPasswordEncoder.encode(member.getPassword()));
 			adminService.addAdmin(member);
 			
 			return "redirect:manageAdmin.htm";

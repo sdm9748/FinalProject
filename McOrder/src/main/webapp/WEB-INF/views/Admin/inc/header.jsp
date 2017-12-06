@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags" %>
 <link href="${pageContext.request.contextPath}/resources/css/component.css" type="text/css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/resources/css/demo.css" type="text/css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/resources/css/normalize.css" type="text/css" rel="stylesheet" />
@@ -28,5 +30,19 @@
 		<div class="col-sm-2" style="text-align: left; margin-top: auto; margin-bottom: auto;">
 			<span style="color:#fff; font-family: 'Hanna', serif; font-size: 25px;">관리자 안녕하세요?</span>
 		</div>
+		<se:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_TOPADMIN')">
+		<div class="row menuRow">
+			<div class="col-xs-2"
+				style="margin: auto; padding-left: 30px; padding-right: 0;">
+				<img
+					src="${pageContext.request.contextPath}/resources/images/logout.png"
+					style="width: 100%;">
+			</div>
+			<div class="col-xs-10"
+				style="padding-top: auto; padding-bottom: auto;">
+				<a href="${pageContext.request.contextPath}/logout.htm">로그아웃</a>
+			</div>
+		</div>
+		</se:authorize>
 	</div>
 </div>
