@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -271,8 +272,12 @@ public class AdminController {
 		 */
 		@RequestMapping(value= "manageMenu_rowadmin_admin.htm", method = RequestMethod.GET)
 		public String showMenuListAdmin(Model model) {
+			
 			List<Menu> list = menuService.getMenuList();
+			List<Menu> listSet = menuService.getMenuListSet();
+			
 			model.addAttribute("menuList", list);
+			model.addAttribute("setList", listSet);
 			return "manageMenu_rowadmin_admin.admin";
 		}
 		
@@ -335,17 +340,39 @@ public class AdminController {
 		}
 	/*
 	 * @method Name : showMenuListTopAdmin
-	 * @date  : 2017.11.30
-	 * @author :2017.11.30. : 최한나
+	 * @date  : 2017.12.07
+	 * @author :2017.12.07. : 최한나
 	 * @description : 최상위 관리자가 관리자 페이지에서 메뉴 리스트 보는 것
 	 * @param spec : Model model
 	 * @return : String 
 	 */
 	@RequestMapping("manageMenu.htm") 
 	public String showMenuListTopAdmin(Model model) {
+		
 		List<Menu> list = menuService.getMenuList();
+		List<Menu> listSet = menuService.getMenuListSet();
+		
 		model.addAttribute("menuList", list);
+		model.addAttribute("setList", listSet);
+		
 		return "manageMenu.admin";
+	}
+	@RequestMapping("getManageMenu.htm") 
+	public View showMenuListTopAdmin(@RequestBody Menu menu, ModelMap model) {
+		System.out.println("메뉴리스트 비동기 왔나요!!!");
+		int menuType = 0;
+		if(menu.getMenuType()!=0) {
+			menuType = menu.getMenuType();
+		}else {
+			List<Menu> list2 = menuService.getMenuListSet();
+			model.addAttribute("setList", list2);
+		}
+		System.out.println("메뉴타입 확인 : " + menuType);
+		
+		List<Menu> list = menuService.getMenuListOrderby(menuType);
+		
+		model.addAttribute("menuList", list);
+		return jsonview;
 	}
 	
 	/*
@@ -356,33 +383,13 @@ public class AdminController {
 	 * @param spec : String menuName, Model model
 	 * @return : String 
 	 */
-	@RequestMapping("detailMenu.htm") 
+	@RequestMapping("detailMenu.htm") //어어어어어어어어고치자
 	public String showMenuDetail(String menuName, Model model) {
 		Menu menu = menuService.getMenuDetail(menuName);
 		model.addAttribute("menu", menu);
 		return "detailMenu.admin";
 	}
 
-	// 최상위 관리자가 메뉴수정하려고 가는 페이지 뷰단만 보여주는것
-	public String showEditMenu(String menuName) {
-		return null;
-	}
-
-	// 최상위 관리자가 메뉴수정완료후 다시 메뉴리스트로 돌아 가는 것
-	public String editCompletedMenu(Menu menu, Model model) {
-		return null;
-	}
-
-	// 하위관리자가 메뉴 추가하러 가는 페이지
-	public String showaddMenu(int branchCode) {
-		return null;
-	}
-
-	// 하위관리자가 메뉴 추가후 리스트로 돌아가는것 이때 서비스 두개부르자 먼저 전체삭제하고
-	// 페이지에서 체크한거 통째로 추가
-	public String addMenu(int branchCode, List<Menu> list) {
-		return null;
-	}
 
 	/*
 	 * @method Name : addMenu
@@ -411,7 +418,7 @@ public class AdminController {
 			
 			System.out.println("여기가 POST");
 			System.out.println("컨트롤러진입");
-			
+			 System.out.println(menu.toString());
 			CommonsMultipartFile file = menu.getFile();
 			String fpath2 = null;
 			String filename = "";
@@ -422,7 +429,7 @@ public class AdminController {
 	
 				System.out.println(filename + " , " + fpath);
 				fpath2 = "resources/upload/" + filename;
-	
+				
 				if (!filename.equals("")) {
 					// 서버에 파일 업로드 (write)
 					System.out.println("여기 들어왔나?");
@@ -431,13 +438,18 @@ public class AdminController {
 					fs.close();
 				}
 			}
-			
 			//실 DB Insert
 			 menu.setMenuImage(fpath2);
+			String type ="s";
+			if(menu.getMenuType()==4) {
+				type="y";
+				menu.setMenuType(1);
+			}
+			
+			menuService.addMenu(menu, type);
 			 
 			 
-			 menuService.addMenu(menu);
-			 System.out.println(menu.toString());
+			
 			 
 			return "redirect:manageMenu.htm";
 		}

@@ -24,10 +24,16 @@ public interface MenuDao {
 	 * @param spec : 
 	 * @return : List<Menu>
 	 */
-	public List<Menu> getMenuList();
+	public List<Menu> getMenuList1();
+	public List<Menu> getMenuList2(int menuType);
+	public List<Menu> getSetList();
+	
 	
 	// 최상위관리자가 메뉴 추가
-	public int addMenu(Menu menu);
+	public int addMenu1(Menu menu);
+	public int addMenu2(Menu menu);
+	public int addMenu3(Menu menu);
+	public int addMenu4(Menu menu);
 	
 	
 	//최상위관리자 영양소 추가

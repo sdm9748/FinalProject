@@ -86,9 +86,9 @@
 		</div>
 		
 		<div class="row" style="padding-left: 25px;">
-			<input class="startdate" type="date" name="startDate" style="width: 20%; height: 30px;" disabled>
+			<input class="startdate" type="date" name="startDate" style="width: 20%; height: 30px;" value="1999-01-01" >
 			<span style="color: #fff; font-size: 25px; font-family: 'Hanna', serif; margin-top: auto; margin-bottom: auto;">&nbsp;~&nbsp;</span>
-			<input class="enddate" type="date" name="endDate" style="width: 20%; height: 30px;" disabled>
+			<input class="enddate" type="date" name="endDate" style="width: 20%; height: 30px;" value="2999-01-01">
 		</div>
 		
 		<div class="row">

@@ -8,6 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/manageMenu.css">
 <script>
+var path = '<%=request.getContextPath() %>';
 $(function(){
     $('#dataList').DataTable({
              "paging": true ,
@@ -29,6 +30,61 @@ $(function(){
 
            });
   });
+  
+  function getMenuList(type) {
+	  
+	  console.log(type);
+	  var data = {menuType : type}
+	  var _data = JSON.stringify(data);
+	  console.log(_data);
+	  $.ajax({
+          type: "POST",
+          url:  "getManageMenu.htm",
+          data: _data,
+          contentType : "application/json; charset=UTF-8",
+          dataType: "json",
+          success:function(data){ //callback  
+               console.log("도착 데이터!!!!"+data.menuList);
+               $('#menuListBody').empty();
+               
+               $.each(data.setList, function(index, obj) {
+				   console.log(obj.menuName);
+	               
+	               var opr = "<tr style='text-align: center;'><td><a href='detailMenu.htm?menuName="+obj.menuName;
+	               opr += "'>"+obj.menuName+"</a></td><td>"
+	               opr += "세트";   
+	               opr += "</td><td>"+obj.startDate+"</td><td style='text-align: center;'>"+obj.endDate;
+	               opr += "</td><td style='text-align: center;'>"+obj.price+"</td><td style='text-align: center;'>";
+	               opr += "<img src="+path+"/"+obj.menuImage+" style='width: 100px; height: 100px' >";
+	               opr += "</td></tr>";
+	               
+	               $('#menuListBody').append(opr);
+				});
+	           $.each(data.menuList, function(index,obj){
+	               console.log(obj.menuName);
+	               
+	               var opr = "<tr style='text-align: center;'><td><a href='detailMenu.htm?menuName="+obj.menuName;
+	               opr += "'>"+obj.menuName+"</a></td><td>"
+	               if(obj.menuType=='1'){
+	            	 opr += "햄버거";  
+	               }else if(obj.menuType=='2'){
+	            	 opr += "음료";   
+	               }else if(obj.menuType=='3'){
+	            	 opr += "사이드";   
+	               }
+	               opr += "</td><td>"+obj.startDate+"</td><td style='text-align: center;'>"+obj.endDate;
+	               opr += "</td><td style='text-align: center;'>"+obj.price+"</td><td style='text-align: center;'>";
+	               opr += "<img src="+path+"/"+obj.menuImage+" style='width: 100px; height: 100px' >";
+	               opr += "</td></tr>";
+	               
+	               $('#menuListBody').append(opr);
+	               
+	           });
+            }
+       }); 
+	  
+	
+}
 </script>
 <div id="content">
 	<div class="container">
@@ -44,11 +100,21 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	<se:authorize access="hasRole('ROLE_TOPADMIN')">
-	<a class="btn btn-warning" style="width: 200px; margin-top: 30px;" href="${pageContext.request.contextPath}/Admin/registMenu.htm">
-		<span style="color: #fff; font-size: 20px; font-family: 'Hanna', serif; margin-top: auto; margin-bottom: auto;">메뉴등록</span>
-	</a>
-	</se:authorize>
+	<button class="btn btn-warning" style="width: 200px; margin-top: 30px;" onclick="getMenuList(0)">
+		<span style="color: #fff; font-size: 20px; font-family: 'Hanna', serif; margin-top: auto; margin-bottom: auto;">전체보기</span>
+	</button>
+	<button class="btn btn-warning" style="width: 200px; margin-top: 30px;" onclick="getMenuList(1)">
+		<span style="color: #fff; font-size: 20px; font-family: 'Hanna', serif; margin-top: auto; margin-bottom: auto;">햄버거</span>
+	</button>
+	<button class="btn btn-warning" style="width: 200px; margin-top: 30px;" onclick="getMenuList(2)">
+		<span style="color: #fff; font-size: 20px; font-family: 'Hanna', serif; margin-top: auto; margin-bottom: auto;">음료</span>
+	</button>
+	<button class="btn btn-warning" style="width: 200px; margin-top: 30px;" onclick="getMenuList(3)">
+		<span style="color: #fff; font-size: 20px; font-family: 'Hanna', serif; margin-top: auto; margin-bottom: auto;">사이드</span>
+	</button>
+	<button class="btn btn-warning" style="width: 200px; margin-top: 30px;" onclick="getMenuList(4)">
+		<span style="color: #fff; font-size: 20px; font-family: 'Hanna', serif; margin-top: auto; margin-bottom: auto;">세트</span>
+	</button>
 		<table id="dataList">
 		<thead>
 			<tr>
@@ -61,7 +127,22 @@ $(function(){
 			</tr>
 		</thead>
 		<tbody id="menuListBody">
-		
+		<c:forEach items="${setList}" var="menu">
+			<tr style="text-align: center;">
+				<td><a href="detailMenu.htm?menuName=${menu.menuName}">${menu.menuName }</a></td>
+				<td>세트</td>
+				<td>${menu.startDate}</td>
+				<td style="text-align: center;">
+					${menu.endDate}
+				</td>
+				<td style="text-align: center;">
+					${menu.price }
+				</td>
+				<td style="text-align: center;">
+				<img src="<%=request.getContextPath()%>/${menu.menuImage}" style="width: 100px; height: 100px" >
+				</td>
+			</tr>
+		</c:forEach>
 		<c:forEach items="${menuList}" var="menu">
 			<tr style="text-align: center;">
 				<td><a href="detailMenu.htm?menuName=${menu.menuName}">${menu.menuName }</a></td>
@@ -92,4 +173,9 @@ $(function(){
 		</c:forEach>
 		</tbody>
 	</table>
+	<se:authorize access="hasRole('ROLE_TOPADMIN')">
+	<a class="btn btn-warning" style="width: 200px; margin-top: 30px;" href="${pageContext.request.contextPath}/Admin/registMenu.htm">
+		<span style="color: #fff; font-size: 20px; font-family: 'Hanna', serif; margin-top: auto; margin-bottom: auto;">메뉴등록</span>
+	</a>
+	</se:authorize>
 </div>

@@ -4,25 +4,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.kosta.dao.MenuDao">
-	<select id="getMenuList" resultType="kr.or.kosta.dto.Menu">
+	<select id="getMenuList1" resultType="kr.or.kosta.dto.Menu">
 		select menuName, price, menuType, startDate, endDate, menuImage
 		from Menu
 		order by menuType asc
 	</select>
+	<select id="getMenuList2" parameterType="Integer" resultType="kr.or.kosta.dto.Menu">
+		select menuName, price, menuType, startDate, endDate, menuImage
+		from Menu where menuType=#{menuType}
+		order by menuType asc
+	</select>
+	<select id="getSetList" resultType="kr.or.kosta.dto.Menu">
+		select b.setMenuName menuName, b.menuType menuType, m.startdate startDate, m.enddate endDate, 
+		m.price+1500 price, m.menuImage
+		from menu m ,bugerset b 
+		where m.menuName = b.menuName 
+	</select>
+	
 	<select id="getMenuDetail" resultType="kr.or.kosta.dto.Menu">
 		select *
 		from Menu m, Nutrient n
 		where m.menuName = n.menuName
         and m.menuName=#{menuName} 
 	</select>
-	<!--여기부터 주호 -->
-	<insert id="addMenu" parameterType="kr.or.kosta.dto.Menu">
-		insert into menu values(#{menuName},#{menuType},#{startDate},#{endDate}, #{price}, #{menuImage, jdbcType=VARCHAR})
+	
+	<insert id="addMenu1" parameterType="kr.or.kosta.dto.Menu">
+		insert into menu 
+		values(#{menuName},#{menuType},#{startDate},#{endDate}, #{price}, #{menuImage, jdbcType=VARCHAR},Burger_menuCode.nextval)
+	</insert>
+	<insert id="addMenu2" parameterType="kr.or.kosta.dto.Menu">
+		insert into menu 
+		values(#{menuName},#{menuType},#{startDate},#{endDate}, #{price}, #{menuImage, jdbcType=VARCHAR},Side_menuCode.nextval)
+	</insert>
+	<insert id="addMenu3" parameterType="kr.or.kosta.dto.Menu">
+		insert into menu 
+		values(#{menuName},#{menuType},#{startDate},#{endDate}, #{price}, #{menuImage, jdbcType=VARCHAR},Drink_menuCode.nextval)
+	</insert>
+	<insert id="addMenu4" parameterType="kr.or.kosta.dto.Menu">
+		insert into menu 
+		values(#{menuName},#{menuType}, #{startDate},#{endDate},#{price}, #{menuImage, jdbcType=VARCHAR},BurgerSet_menuCode.nextval)
 	</insert>
 	<insert id="addNutrient" parameterType="kr.or.kosta.dto.Menu">
 		insert into nutrient values(#{menuName}, #{weight}, #{calorie}, #{protein}, #{natrium})
 	</insert>
-	
 	<insert id="addBurgerSet" parameterType="kr.or.kosta.dto.BurgerSet">
 		insert into BugerSet values(#{setMenuName},#{menuType},#{menuName})
 	</insert>

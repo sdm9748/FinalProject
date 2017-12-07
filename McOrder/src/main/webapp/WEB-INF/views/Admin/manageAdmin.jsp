@@ -43,7 +43,7 @@ $(function(){
 	        	  
 	               console.log("도착 데이터!!!!"+data);
 	               $('#adminListBody').empty();
-		           $.each(data.orderList, function(index,obj){
+		           $.each(data.adminList, function(index,obj){
 		               var opr="";
 		               opr += "<tr style='text-align: center;'><td>"+obj.branchCode+"</td><td>"+obj.id+"</td>";
 		               opr += "<td style='text-align: center;'>";

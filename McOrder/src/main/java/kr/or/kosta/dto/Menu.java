@@ -22,6 +22,8 @@ public class Menu {
 	private String protein; // 단백질
 	private String natrium; // 나트륨
 	private int branchCode;	//하위관리자 리스트 출력을 위해 필요
+
+	
 	
 	
 	

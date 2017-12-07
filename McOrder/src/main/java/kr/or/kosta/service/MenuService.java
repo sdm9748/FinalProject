@@ -54,19 +54,34 @@ public class MenuService {
 	 * @return : void
 	 */
 	@Transactional
-	public void addMenu(Menu menu) {
+	public void addMenu(Menu menu, String type) {
 		
 		MenuDao menudao = session.getMapper(MenuDao.class);
 		System.out.println("서비스 여기까진 왔지?");
 		System.out.println(menu.toString());
 		try {
-			menudao.addMenu(menu);
+			
+			if(menu.getMenuType()==1) {
+				menudao.addMenu1(menu);
+			}else if(menu.getMenuType()==2) {
+				menudao.addMenu2(menu);
+			}else if(menu.getMenuType()==3) {
+				menudao.addMenu3(menu);
+			}else {
+				/*menu.setMenuType(1);
+				menudao.addMenu1(menu);
+				menu.setMenuType(4);
+				menu.setMenuName(menu.getMenuName()+"세트");
+				menudao.addMenu4(menu);*/
+			}
 			menudao.addNutrient(menu);
-			BurgerSet burgerSet = new BurgerSet();
-			burgerSet.setSetMenuName(menu.getMenuName()+"세트");
-			burgerSet.setMenuType(menu.getMenuType());
-			burgerSet.setMenuName(menu.getMenuName());
-			if(menu.getMenuType()==4) {
+		
+			if(type.equals("y")) {
+				
+				BurgerSet burgerSet = new BurgerSet();
+				burgerSet.setSetMenuName(menu.getMenuName()+"세트");
+				burgerSet.setMenuType(4);
+				burgerSet.setMenuName(menu.getMenuName());
 				menudao.addBurgerSet(burgerSet);
 			}
 		} catch (Exception e) {
@@ -76,6 +91,7 @@ public class MenuService {
 		
 		
 	}
+	
 	/*
 	 * @method Name : getMenuList
 	 * @date : 2017.11.29
@@ -84,12 +100,33 @@ public class MenuService {
 	 * @param spec : 
 	 * @return : List<Menu>
 	 */
-	public List<Menu> getMenuList(){
+	public List<Menu> getMenuListOrderby(int menuType){
 		
 		MenuDao menudao = session.getMapper(MenuDao.class);
-		List<Menu> list = menudao.getMenuList();
+		List<Menu> list = null;
+		if(menuType==0) {
+			list = menudao.getMenuList1();
+		}else if(menuType==4) {
+			list = menudao.getSetList();
+		}else {
+			list = menudao.getMenuList2(menuType);
+		}
 		return list;
 	}
+	
+	public List<Menu> getMenuList(){
+		MenuDao menudao = session.getMapper(MenuDao.class);
+		List<Menu> list = menudao.getMenuList1();
+		
+		return list;
+	}
+	
+	public List<Menu> getMenuListSet(){
+		MenuDao menudao = session.getMapper(MenuDao.class);
+		List<Menu> list = menudao.getSetList();
+		return list;
+	}
+	
 	/*
 	 * @method Name : addMenuListRowAdmin
 	 * @date : 2017.12.03
@@ -110,7 +147,7 @@ public class MenuService {
 	
 	/*
 	 * @method Name : getMenuRowAdmin
-	 * @date : 2017.12.03
+	 * @date : 2017.12.03   nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
 	 * @author :2017.12.03. : 염주호
 	 * @description :  하위관리자 메뉴리스트 뿌리기
 	 * @param spec : int branchCode
@@ -123,26 +160,7 @@ public class MenuService {
 		return list;
 	}
 	
-	// 하위 관리자가 최상위관리자가 등록한 메뉴 리스트들 중 판매원하는 메뉴들 체크해서 등록
-	public int addMenu(int branchCode, List<Menu> list) {
-		return 0;
-	}
-	
-	// 하위관리자가 만약 메뉴등록페이지에와서 체크하고 등록버튼누르면 일단 그 매장에 있는 
-	// 메뉴리스트를 전체 지우고 체크한부분들을 다시 등록시키는 것이므로 선행될 전체 삭제 서비스
-	public int deleteMenu(int branchCode) {
-		return 0;
-	}
-	
-	// 최상위 관리자가 메뉴 삭제
-	public int deleteMenu(String menuName) {
-		return 0;
-	}
-	
-	// 최상위 관리자가 메뉴 수정
-	public int updateMenu(Menu menu) {
-		return 0;
-	}
+
 	
 	
 }
