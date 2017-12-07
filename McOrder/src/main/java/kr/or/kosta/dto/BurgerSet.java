@@ -2,32 +2,30 @@ package kr.or.kosta.dto;
 
 public class BurgerSet extends Menu {
 
-	private Burger burger;
-	private Dessert dessert;
-	private Drink drink;
-	
-	public Burger getBurger() {
-		return burger;
+	private String setMenuName;
+	private int menuType;
+	private String menuName;
+	public String getSetMenuName() {
+		return setMenuName;
 	}
-	public void setBurger(Burger burger) {
-		this.burger = burger;
+	public void setSetMenuName(String setMenuName) {
+		this.setMenuName = setMenuName;
 	}
-	public Dessert getDessert() {
-		return dessert;
+	public int getMenuType() {
+		return menuType;
 	}
-	public void setDessert(Dessert dessert) {
-		this.dessert = dessert;
+	public void setMenuType(int menuType) {
+		this.menuType = menuType;
 	}
-	public Drink getDrink() {
-		return drink;
+	public String getMenuName() {
+		return menuName;
 	}
-	public void setDrink(Drink drink) {
-		this.drink = drink;
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
 	}
-	
 	@Override
 	public String toString() {
-		return "BurgerSet [burger=" + burger + ", dessert=" + dessert + ", drink=" + drink + "]";
+		return "BurgerSet [setMenuName=" + setMenuName + ", menuType=" + menuType + ", menuName=" + menuName + "]";
 	}
 	
 	

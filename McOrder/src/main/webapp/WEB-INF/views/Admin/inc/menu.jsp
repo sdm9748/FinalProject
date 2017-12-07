@@ -22,6 +22,11 @@
 			<span style="color:#fff; font-family: 'Hanna', serif; font-size: 25px;">매출 관리</span><br>
 		</a>
 	</div>
+	<div class="col-sm-12" style="text-align: center; margin-top: 20px;">
+		<a href="${pageContext.request.contextPath}/Admin/manageMenu_rowadmin.htm">
+			<span style="color:#fff; font-family: 'Hanna', serif; font-size: 25px;">메뉴 관리<br>(하위관리자)</span>
+		</a>
+	</div>
 	</se:authorize>
 	<!-- 최상위 관리자 메뉴관리 메뉴 리스트는 모두한테 뿌리고... 그 안에 버튼으로 제어하자...-->
 	<div class="col-sm-12" style="text-align: center; margin-top: 20px;">
@@ -29,6 +34,7 @@
 			<span style="color:#fff; font-family: 'Hanna', serif; font-size: 25px;">메뉴 관리</span>
 		</a>
 	</div>
+	
 	<se:authorize access="hasRole('ROLE_TOPADMIN')">		
 	<div class="col-sm-12" style="text-align: center; margin-top: 25px;">
 		<a href="${pageContext.request.contextPath}/Admin/manageAdmin.htm">

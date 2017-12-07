@@ -9,6 +9,7 @@ import java.util.List;
 
 import kr.or.kosta.dto.Admin;
 import kr.or.kosta.dto.Member;
+import kr.or.kosta.dto.Restaurant;
 
 public interface AdminDao {
 
@@ -52,4 +53,16 @@ public interface AdminDao {
 	 * @return : void
 	 */
 	public void addAdminToMember(Member member);
+	
+	/*
+	 * @method Name : addRestaurant
+	 * @date : 2017.12.06
+	 * @author :2017.12.06. : 최한나
+	 * @description : 매장정보등록
+	 * @param spec : 
+	 * @return : void
+	 */
+	public void addRestaurant(int branchCode, String addr1, String addr2);
+	
+	public Restaurant getRestaurant(int branchCode);
 }

@@ -15,11 +15,19 @@ public class Event {
 	
 	private String eventTitle;
 	private String eventContent;	
-	private String writer;
+	private int branchCode;
 	
 	private String eventImage1;
 	private String eventImage2;
 	
+	
+	
+	public int getBranchCode() {
+		return branchCode;
+	}
+	public void setBranchCode(int branchCode) {
+		this.branchCode = branchCode;
+	}
 	//다중 파일 업로드/////////////////////////////////////
 	private List<CommonsMultipartFile> files;
 	
@@ -48,12 +56,6 @@ public class Event {
 	public void setEventContent(String eventContent) {
 		this.eventContent = eventContent;
 	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
 	public String getEventImage1() {
 		return eventImage1;
 	}
@@ -69,7 +71,7 @@ public class Event {
 	@Override
 	public String toString() {
 		return "Event [eventNum=" + eventNum + ", eventTitle=" + eventTitle + ", eventContent=" + eventContent
-				+ ", writer=" + writer + ", eventImage1=" + eventImage1 + ", eventImage2=" + eventImage2 + ", files="
+				+ ", branchCode=" + branchCode + ", eventImage1=" + eventImage1 + ", eventImage2=" + eventImage2 + ", files="
 				+ files + "]";
 	}
 

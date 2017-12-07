@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.View;
 
@@ -35,10 +36,12 @@ import kr.or.kosta.dto.Event;
 import kr.or.kosta.dto.Member;
 import kr.or.kosta.dto.Menu;
 import kr.or.kosta.dto.Order;
+import kr.or.kosta.dto.Restaurant;
 import kr.or.kosta.dto.Sales;
 import kr.or.kosta.service.AdminService;
 import kr.or.kosta.service.CartService;
 import kr.or.kosta.service.EventService;
+import kr.or.kosta.service.MemberService;
 import kr.or.kosta.service.MenuService;
 import kr.or.kosta.service.OrderService;
 import kr.or.kosta.service.SalesService;
@@ -64,6 +67,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@Autowired
 	private View jsonview;
@@ -406,30 +412,28 @@ public class AdminController {
 			System.out.println("여기가 POST");
 			System.out.println("컨트롤러진입");
 			
-			
 			CommonsMultipartFile file = menu.getFile();
-			
+			String fpath2 = null;
 			String filename = "";
-			if(file != null) {
-				 //업로드한 파일이 있다면
-				
-					 filename = file.getOriginalFilename();
-					 String path = request.getServletContext().getRealPath("/resources/upload");
-					 String fpath = path + "\\" + filename;
-					 
-					 System.out.println(filename + " , " + fpath);
-					 
-					 if(!filename.equals("")) {
-						 //서버에 파일 업로드 (write)
-						 System.out.println("여기 들어왔나?");
-						 FileOutputStream fs = new FileOutputStream(fpath);
-						 fs.write(file.getBytes());
-						 fs.close();
-				 }
-			 }
+			if (file != null) {
+				filename = file.getOriginalFilename();
+				String path = request.getServletContext().getRealPath("/resources/upload");
+				String fpath = path + "\\" + filename;
+	
+				System.out.println(filename + " , " + fpath);
+				fpath2 = "resources/upload/" + filename;
+	
+				if (!filename.equals("")) {
+					// 서버에 파일 업로드 (write)
+					System.out.println("여기 들어왔나?");
+					FileOutputStream fs = new FileOutputStream(fpath);
+					fs.write(file.getBytes());
+					fs.close();
+				}
+			}
 			
 			//실 DB Insert
-			 menu.setMenuImage(filename);
+			 menu.setMenuImage(fpath2);
 			 
 			 
 			 menuService.addMenu(menu);
@@ -584,6 +588,22 @@ public class AdminController {
 		}
 		
 		/*
+		 * @method Name : viewDetailBranch
+		 * @date  : 2017.12.07
+		 * @author :2017.12.07. : 최한나
+		 * @description : 선택 매장 상세정보보기
+		 * @param spec : int branchCode, Model model
+		 * @return : String 
+		 */
+		@RequestMapping("detailBranch.htm")
+		public String viewDetailBranch(int branchCode, Model model) {
+			
+			Restaurant restaurant = adminService.getRestaurant(branchCode);
+			model.addAttribute("restaurant", restaurant);
+			return "detailRestaurant.admin";
+		}
+		
+		/*
 		 * @method Name : deleteAdmin
 		 * @date  : 2017.12.06
 		 * @author :2017.12.06. : 최한나
@@ -632,6 +652,14 @@ public class AdminController {
 			return "redirect:manageAdmin.htm";
 		}
 		
-		
+		// 회원가입 페이지 아이디 중복여부 체크
+		@RequestMapping(value="/dupl.htm", method=RequestMethod.POST)
+		@ResponseBody
+		public View dupl(String id, Model model) {
+			System.out.println("넘어온 아이디: " + id);
+			int row = memberService.dupl(id);
+			model.addAttribute("row", row);
+			return jsonview;
+		}
 		
 }

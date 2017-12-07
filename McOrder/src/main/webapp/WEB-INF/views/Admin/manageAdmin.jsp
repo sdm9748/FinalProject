@@ -88,13 +88,15 @@ $(function(){
 		<tbody id="adminListBody">
 		
 		<c:forEach items="${adminList}" var="admin">
+			<c:if test="${admin.branchCode != 0}">
 			<tr style="text-align: center;">
-				<td>${admin.branchCode}</td>
-				<td>${admin.name }</td>
+				<td><a href="detailBranch.htm?branchCode=${admin.branchCode }">${admin.branchCode}</a></td>
+				<td><a href="detailBranch.htm?branchCode=${admin.branchCode }">${admin.name }</a></td>
 				<td>
 				<button id="orderButton" onclick="deleteAdmin(${admin.branchCode})" class="btn btn-warning">삭제</button>
 				</td>
 			</tr>
+			</c:if>
 		</c:forEach>
 		</tbody>
 	</table>

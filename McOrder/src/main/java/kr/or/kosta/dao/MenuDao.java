@@ -8,6 +8,7 @@ package kr.or.kosta.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.kosta.dto.BurgerSet;
 import kr.or.kosta.dto.Menu;
 
 public interface MenuDao {
@@ -63,5 +64,7 @@ public interface MenuDao {
 	// 주문 시 불고기 버거 디테일에 버거세트 내용도 같이 뿌려줘야 해서 이때는 리스트로 뿌릴거임
 	// 라이크 써서 menuName 들어간 메뉴이름 다뿌릴거야!!!!
 	public List<Menu> getMenu(String menuName);
+	
+	public int addBurgerSet(BurgerSet burgetSet);
 	
 }

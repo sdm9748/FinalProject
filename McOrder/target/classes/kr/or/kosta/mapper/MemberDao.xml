@@ -5,8 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="kr.or.kosta.dao.MemberDao">
 
 	<insert id="join" parameterType="kr.or.kosta.dto.Member">
-		insert into member(id, password, name, email, address, phonenum, birth, role)
-		values(#{id}, #{password}, #{name}, #{email}, #{address}, #{phoneNum}, #{birth}, 'ROLE_USER')
+		insert into member(id, password, name, email, address, phonenum, birth, role, status)
+		values(#{id}, #{password}, #{name}, #{email}, #{address}, #{phoneNum}, #{birth}, 'ROLE_USER',3)
 	</insert>
 
 	<update id="lastTime">

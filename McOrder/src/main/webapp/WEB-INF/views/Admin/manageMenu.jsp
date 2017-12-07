@@ -86,7 +86,7 @@ $(function(){
 					${menu.price }
 				</td>
 				<td style="text-align: center;">
-				<img src="<%=request.getContextPath()%>/${menu.menuImage }" style="width: 100px; height: 100px" >
+				<img src="<%=request.getContextPath()%>/${menu.menuImage}" style="width: 100px; height: 100px" >
 				</td>
 			</tr>
 		</c:forEach>

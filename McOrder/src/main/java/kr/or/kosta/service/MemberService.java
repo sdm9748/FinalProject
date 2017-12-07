@@ -23,13 +23,16 @@ public class MemberService implements AuthenticationSuccessHandler {
 	@Autowired
 	private SqlSession session;
 	
-	// 회원가입
-	public void joinMember(Member member) {
-		MemberDao dao = session.getMapper(MemberDao.class);
-		// member 테이블에 회원아이디 insert
-		dao.join(member);
-		
-	}
+	  // 회원가입
+	  public void joinMember(Member member) {
+	      MemberDao dao = session.getMapper(MemberDao.class);
+	      String addr1 = member.getSample2_address();
+	      String addr2 = member.getAddress2();
+	      member.setAddress(addr1 + " " + addr2);
+	      // member 테이블에 회원아이디 insert
+	      dao.join(member);
+	      
+	   }
 	
 	// 회원가입 페이지에서 아이디 중복체크
 	public int dupl(String id) {

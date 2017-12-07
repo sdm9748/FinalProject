@@ -11,27 +11,16 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.kosta.dao.MenuDao;
+import kr.or.kosta.dto.BurgerSet;
 import kr.or.kosta.dto.Menu;
 
 @Service
 public class MenuService {
 	@Autowired
 	private SqlSession session;
-	
-	// 메뉴리스트보는건데 인기순, 가격순 처럼 orderby랑 버거 디저트 버튼도 파라미터로
-	// 가져가서 해당되는 조건에 맞게 리스트 뿌리는 것
-	// 메뉴타입 int 가나은가 String 이 나은가????
-	public List<Menu> getMenuList(int branchCode, String menuType, String orderBy){
-		return null;
-	}
-	
-	// 메뉴상세페이지인데 이거는 해당매장 메뉴 디테일인데 그 재료상세가 아니라
-	// 메뉴가 불고기버거면 like 써서 세트도 같이 뿌려줄때 사용하는 서비스
-	public List<Menu> getMenu(int branchCode, String menuName){
-		return null;
-	}
 	
 	/*
 	 * @method Name : getMenuDetail
@@ -49,20 +38,42 @@ public class MenuService {
 		return menu;
 	}
 	/*
-	 * @method Name : getMenuDetail
+	 * @method Name : addMenu
 	 * @date : 2017.11.30
 	 * @author :2017.11.30. : 염주호
 	 * @description :  메뉴 등록
 	 * @param spec : Menu menu
 	 * @return : void
 	 */
+	/*
+	 * @method Name : addMenu
+	 * @date : 2017.12.07
+	 * @author :2017.12.07. : 최한나 
+	 * @description :  메뉴 등록시 세트메뉴 체크하면 세트테이블에도 등록하기
+	 * @param spec : Menu menu
+	 * @return : void
+	 */
+	@Transactional
 	public void addMenu(Menu menu) {
 		
 		MenuDao menudao = session.getMapper(MenuDao.class);
 		System.out.println("서비스 여기까진 왔지?");
 		System.out.println(menu.toString());
-		menudao.addMenu(menu);
-		menudao.addNutrient(menu);
+		try {
+			menudao.addMenu(menu);
+			menudao.addNutrient(menu);
+			BurgerSet burgerSet = new BurgerSet();
+			burgerSet.setSetMenuName(menu.getMenuName()+"세트");
+			burgerSet.setMenuType(menu.getMenuType());
+			burgerSet.setMenuName(menu.getMenuName());
+			if(menu.getMenuType()==4) {
+				menudao.addBurgerSet(burgerSet);
+			}
+		} catch (Exception e) {
+			System.out.println("Transaction 예외 발생" + e.getMessage());
+			throw e; // 예외 발생 시기면 : 자동 rollback
+		}
+		
 		
 	}
 	/*

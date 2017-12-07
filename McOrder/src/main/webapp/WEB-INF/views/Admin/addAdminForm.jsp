@@ -99,8 +99,8 @@
 			
 			<div class="col-xs-12" style="margin-left: auto; margin-right: auto; height: 36px; margin-top: 1px;">
 				<center>
-					<input type="text" id="sample2_address" placeholder="주소" style="padding-left: 15px; width: 251px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
-					<input type="text" id="address2" name="address" placeholder="상세주소" style="padding-left: 15px; width: 251px; border-radius: 5px; font-size: 20px; border:none; outline: none; margin-top: 3px;">
+					<input type="text" id="sample2_address" name="sample2_address" placeholder="주소" style="padding-left: 15px; width: 251px; border-radius: 5px; font-size: 20px; border:none; outline: none;">
+					<input type="text" id="address2" name="address2" placeholder="상세주소" style="padding-left: 15px; width: 251px; border-radius: 5px; font-size: 20px; border:none; outline: none; margin-top: 3px;">
 				</center>
 			</div>
 			

@@ -16,6 +16,7 @@ import kr.or.kosta.dao.AdminDao;
 import kr.or.kosta.dao.MemberDao;
 import kr.or.kosta.dto.Admin;
 import kr.or.kosta.dto.Member;
+import kr.or.kosta.dto.Restaurant;
 
 @Service
 public class AdminService {
@@ -75,7 +76,7 @@ public class AdminService {
 	* @method Name : addAdmin
 	* @date  : 2017.12.06
 	* @author :2017.12.06. : 최한나
-	* @description : 하위관리자 멤버테이블에 등록시키고 관리자 테이블에도 등록시키기
+	* @description : 하위관리자 멤버테이블에 등록시키고 매장과 관리자 테이블에도 등록시키기
 	* @param spec : Member member
 	* @return : void
 	*/ 
@@ -87,16 +88,24 @@ public class AdminService {
 		Admin admin = new Admin();
 		System.out.println("관리자등록서비스1 : " +member.getId());
 		System.out.println("관리자등록서비스2 :" + member.getName());
-		admin.setBranchCode(Integer.parseInt(member.getId()));
-		admin.setRole("ROLE_ADMIN");
+		int branchCode = Integer.parseInt(member.getId());
+		admin.setBranchCode(branchCode);
 		admin.setName(member.getName());
-		
+		String addr1 = member.getSample2_address();
+	    String addr2 = member.getAddress2();
+	    member.setAddress(addr1 + " " + addr2);
+	    
 		System.out.println("관리자등록서비스 member branchCode : " + admin.getBranchCode());
 		try {
 
 			// 회원테이블에 추가하고 가공할떄 set으로 Admin에 값 넣어주기
 			adminDao.addAdminToMember(member);
+			
+			// 매장테이블에도 정보추가
+			adminDao.addRestaurant(branchCode,addr1,addr2);
+			
 			// 어드민테이블에 그 아이디로 또 추가 
+			
 			adminDao.addAdmin(admin);
 			
 		} catch (Exception e) {
@@ -106,4 +115,15 @@ public class AdminService {
 		
 		
 	}
+
+	
+	public Restaurant getRestaurant(int branchCode) {
+		
+		AdminDao adminDao = session.getMapper(AdminDao.class);
+		
+		Restaurant restaurant = adminDao.getRestaurant(branchCode);
+		
+		return restaurant;
+	}
+
 }

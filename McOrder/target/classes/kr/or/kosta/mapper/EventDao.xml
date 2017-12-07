@@ -10,13 +10,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getEvent" resultType="kr.or.kosta.dto.Event"> 
-		SELECT eventnum, eventtitle, eventImage1, eventImage2, eventContent, writer
+		SELECT eventnum, eventtitle, eventImage1, eventImage2, eventContent, branchCode
 		FROM EVENT
 		WHERE EVENTNUM=#{eventNum}
 	</select>
 
 	<insert id="addEvent" parameterType="kr.or.kosta.dto.Event"> 
-		insert into event values(Event_eventNum.nextval, #{eventTitle}, #{eventImage1, jdbcType=VARCHAR}, #{eventImage2, jdbcType=VARCHAR}, #{eventContent}, '0000')
+		insert into event(eventnum, eventtitle, eventimage1, eventimage2, eventcontent, branchCode)
+		values(Event_eventNum.nextval, #{eventTitle}, #{eventImage1, jdbcType=VARCHAR}, #{eventImage2, jdbcType=VARCHAR}, #{eventContent}, 0000)
 	</insert>
 	
 	

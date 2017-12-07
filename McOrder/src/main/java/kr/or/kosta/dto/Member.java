@@ -4,103 +4,110 @@ import java.sql.Date;
 
 public class Member {
 
-	private String id;
-	private String password;
-	private String name;
-	private String email;
-	private String address;
-	private String phoneNum;
-	private String grade;
-	private Date lastLogin;
-	private String birth;
-	private String role;
-	
-	
+   private String id;
+   private String password;
+   private String name;
+   private String email;
+   private String sample2_address;
+   private String address2;
+   private String address;
+   private String phoneNum;
+   private String grade;
+   private Date lastLogin;
+   private String birth;
 
-	public String getRole() {
-		return role;
-	}
+   public String getAddress() {
+      return address;
+   }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+   public void setAddress(String address) {
+      this.address = address;
+   }
 
-	public String getBirth() {
-		return birth;
-	}
+   public String getSample2_address() {
+      return sample2_address;
+   }
 
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
+   public void setSample2_address(String sample2_address) {
+      this.sample2_address = sample2_address;
+   }
 
-	public String getId() {
-		return id;
-	}
+   public String getAddress2() {
+      return address2;
+   }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+   public void setAddress2(String address2) {
+      this.address2 = address2;
+   }
 
-	public String getPassword() {
-		return password;
-	}
+   public String getBirth() {
+      return birth;
+   }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+   public void setBirth(String birth) {
+      this.birth = birth;
+   }
 
-	public String getName() {
-		return name;
-	}
+   public String getId() {
+      return id;
+   }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+   public void setId(String id) {
+      this.id = id;
+   }
 
-	public String getEmail() {
-		return email;
-	}
+   public String getPassword() {
+      return password;
+   }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+   public void setPassword(String password) {
+      this.password = password;
+   }
 
-	public String getAddress() {
-		return address;
-	}
+   public String getName() {
+      return name;
+   }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+   public void setName(String name) {
+      this.name = name;
+   }
 
-	public String getPhoneNum() {
-		return phoneNum;
-	}
+   public String getEmail() {
+      return email;
+   }
 
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
-	}
+   public void setEmail(String email) {
+      this.email = email;
+   }
 
-	public String getGrade() {
-		return grade;
-	}
+   public String getPhoneNum() {
+      return phoneNum;
+   }
 
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
+   public void setPhoneNum(String phoneNum) {
+      this.phoneNum = phoneNum;
+   }
 
-	public Date getLastLogin() {
-		return lastLogin;
-	}
+   public String getGrade() {
+      return grade;
+   }
 
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
-	}
+   public void setGrade(String grade) {
+      this.grade = grade;
+   }
 
-	@Override
-	public String toString() {
-		return "Member [id=" + id + ", password=" + password + ", name=" + name + ", email=" + email + ", address="
-				+ address + ", phoneNum=" + phoneNum + ", grade=" + grade + ", lastLogin=" + lastLogin + "]";
-	}
+   public Date getLastLogin() {
+      return lastLogin;
+   }
+
+   public void setLastLogin(Date lastLogin) {
+      this.lastLogin = lastLogin;
+   }
+
+   @Override
+   public String toString() {
+      return "Member [id=" + id + ", password=" + password + ", name=" + name + ", email=" + email + ", address="
+            + ", phoneNum=" + phoneNum + ", grade=" + grade + ", lastLogin=" + lastLogin + "]";
+   }
 
 }

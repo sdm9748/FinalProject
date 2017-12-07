@@ -71,26 +71,4 @@
 		</div>
 	</div>
 	
-	<%-- <div id="notice-article-detail" class="article-detail margin-large">
-		<dl class="article-detail-row">
-			<dt class="article-detail-title">제목</dt>
-			<dd class="article-detail-data">${event.eventTitle}</dd>
-		</dl>
-		<dl class="article-detail-row">
-			<dt class="article-detail-title">내용</dt>
-			<dd class="article-detail-data">${event.eventContent}</dd>
-		</dl>
-		<dl class="article-detail-row half-row">
-			<dt class="article-detail-title">작성자</dt>
-			<dd class="article-detail-data half-data">${event.writer}</dd>
-		</dl>
-		<dl class="article-detail-row">
-			<dt class="article-detail-title">첨부파일</dt>
-			<dd class="article-detail-data">
-				${event.eventImage}
-			</dd>
-		</dl> --%>
-	
-	
-
 	</div>

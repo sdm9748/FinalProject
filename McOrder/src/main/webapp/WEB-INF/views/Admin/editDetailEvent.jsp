@@ -11,7 +11,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css"> <!-- CSS reset -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css"> <!-- Resource style -->
 <script src="${pageContext.request.contextPath}/resources/js/modernizr.js"></script> <!-- Modernizr -->
+<script type="text/javascript">
 
+</script>
 <!-- 20171202_수진 추가 -->
 
 <div id="content">
@@ -32,12 +34,14 @@
 			
 			<div id="contentLeft">
 				<div class="row">
-					<input type='file' name='files[0]' id="imgInp" style="margin-top:20px; color: #fff; font-size: 15px; font-family: 'Hanna', serif; margin-left: 30%;"/>
+					<input type='file' name='files[0]' id="imgInp" value="event.eventImage1" style="margin-top:20px; color: #fff; font-size: 15px; font-family: 'Hanna', serif; margin-left: 30%;"/>
 		      		<img id="blah" src="<%=request.getContextPath()%>/${event.eventImage1}"  style="width:60%; margin-top: 20px; margin-left: 30%; text-align: center; margin-bottom: 2%;"/>
+		      		<input type="hidden" name="eventImage1" value="${event.eventImage1 }">
 		      	</div>
 		      		<div class="row">
 					<input type='file' name='files[1]' id="imgInp2" style="margin-top:20px; color: #fff; font-size: 15px; font-family: 'Hanna', serif; margin-left: 30%;"/>
 		      		<img id="blah2" src="<%=request.getContextPath()%>/${event.eventImage2}"  style="width:60%; margin-top: 20px; margin-left: 30%; text-align: center; margin-bottom: 2%;"/>
+		      		<input type="hidden" name="eventImage2" value="${event.eventImage2 }">
 		      	</div>
 			</div>
 			

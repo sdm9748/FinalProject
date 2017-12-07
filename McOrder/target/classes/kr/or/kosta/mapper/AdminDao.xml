@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="addAdmin">
 		insert into admin(branchCode, name, role)
-		values(#{branchCode}, #{name}, #{role})
+		values(#{branchCode}, #{name}, 'ROLE_ADMIN')
 	</insert>
 
 	<update id="deleteAdmin">
@@ -19,7 +19,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<insert id="addAdminToMember">
-	insert into member(id, password, name, email, address, phonenum, birth, role)
-		values(#{id}, #{password}, #{name}, #{email}, #{address}, #{phoneNum}, #{birth}, 'ROLE_ADMIN')
+	insert into member(id, password, name, email, address, phonenum, birth, role, status)
+		values(#{id}, #{password}, #{name}, #{email}, #{address}, #{phoneNum}, #{birth}, 'ROLE_ADMIN', 2)
 	</insert>
+	
+	<insert id="addRestaurant">
+	insert into restaurant values(#{param1}, #{param3}, #{param2})
+	</insert>
+	
+	<select id="getRestaurant" resultType="kr.or.kosta.dto.Restaurant">
+		select * from restaurant where branchCode = #{branchCode}
+	</select>
 </mapper>

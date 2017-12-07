@@ -23,6 +23,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into nutrient values(#{menuName}, #{weight}, #{calorie}, #{protein}, #{natrium})
 	</insert>
 	
+	<insert id="addBurgerSet" parameterType="kr.or.kosta.dto.BurgerSet">
+		insert into BugerSet values(#{setMenuName},#{menuType},#{menuName})
+	</insert>
 	<!-- 하위 관리자 메뉴 등록 관련 -->
 	<delete id="deleteResMenu">
 		delete from resmenu where branchcode = #{branchCode}

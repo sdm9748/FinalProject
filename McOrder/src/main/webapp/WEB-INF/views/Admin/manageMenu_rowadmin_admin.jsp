@@ -3,7 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/manageMenu.css">
-
+<script>
+	$(function () {
+		alert('메뉴등록하기를 누르시면 모든 판매메뉴가 초기화 된 후에 선택된 메뉴들이 추가됩니다.');
+	});
+</script>
 <div id="content">
 	<div class="container">
 		<div class="row">
@@ -19,7 +23,7 @@
 		</div>
 	</div>
 	<form action="" method="post" id="frm">
-				<table>
+		<table>
 		<thead>
 			<tr>
 				<th style="text-align: center;">판매할 제품</th>
